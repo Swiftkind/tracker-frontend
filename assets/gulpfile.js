@@ -4,6 +4,7 @@ var useref = require('gulp-useref');
 var del = require('del'); // delete the files
 var runSequence = require('run-sequence');
 var babel = require('gulp-babel');
+var concat = require('gulp-concat');
 
 
 gulp.task('sass', function(){
@@ -13,9 +14,9 @@ gulp.task('sass', function(){
 
 });
 
-gulp.task('watch', ['babel', 'sass'], function(){
-    gulp.watch('app/**/*.es6', ['babel']);
+gulp.task('watch', ['babel', 'sass', 'vendors'], function(){
     gulp.watch('sass/*.scss', ['sass']);
+     gulp.watch('app/**/*.es6', ['babel']);
 });
 
 gulp.task('babel', function(){
@@ -23,7 +24,17 @@ gulp.task('babel', function(){
         .pipe(babel({
             presets: ['es2015']
         }))
+        .pipe(concat('app.js'))
         .pipe(gulp.dest('dist/js'))
+});
+
+gulp.task('vendors', function() {
+  return gulp.src([
+    // add 3rd-party scripts here
+    'node_modules/angular/angular.js',
+    'node_modules/angular-ui-router/release/angular-ui-router.js'])
+    .pipe(concat('vendors.js'))
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('build', function(callback){

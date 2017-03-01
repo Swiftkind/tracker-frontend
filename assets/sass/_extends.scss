@@ -1,0 +1,313 @@
+.d-table {
+    display: table;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 1.5em 0.75rem;
+}
+
+//paddings, margins, alignment
+.nopadding {
+    padding: 0;
+}
+
+.nomargin {
+    margin: 0;
+}
+
+.nomargin-top {
+    margin-top: 0;
+}
+
+.align-center {
+    margin: 0 auto;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+//dropdown
+//for dropdown right
+.dropdown-menu {
+    padding: 12px 8px;
+    border-radius: 0;
+    border: none;
+    &.left {
+        left: 100%;
+        top: 0;
+        min-width: 100px;
+    }
+    li {
+        a {
+            &:hover {
+                background: none;
+            }
+        }
+    }
+}
+
+.input-group-addon {
+    background: none;
+    border-radius: 0;
+    border-left: none;
+}
+
+//buttons
+.st-btn-bordered {
+    border: solid 2px;
+    background: none;
+    &:hover {
+        transition: 0.2s;
+    }
+}
+
+.st-btn {
+    border: solid 2px $white;
+    color: $white;
+    &:hover {
+        transition: 0.2s;
+    }
+}
+
+.btn-danger {
+    border-color: $red-orange;
+    background: $red-orange;
+    @extend .st-btn;
+}
+
+.btn-danger-border {
+    @extend .st-btn-bordered;
+    border-color: $red-orange;
+    color: $red-orange;
+    font-weight: 600;
+    &:hover {
+        border-color: darken($red-orange, 10%);
+        color: darken($red-orange, 10%);
+    }
+}
+
+.btn-primary {
+    border-color: $primary-blue;
+    background: $primary-blue;
+    @extend .st-btn;
+    &:hover,
+    &:focus,
+    &:active {
+        border-color: darken($primary-blue, 10%);
+        background: darken($primary-blue, 10%);
+    }
+
+}
+a{
+    &.btn-primary{
+        @extend .btn-primary;
+        padding: 4px 16px;
+    }
+}
+
+.btn-primary-border {
+    @extend .st-btn-bordered;
+    border-color: $primary-blue;
+    color: $primary-blue;
+    font-weight: 600;
+    &:hover {
+        border-color: darken($primary-blue, 10%);
+        color: darken($primary-blue, 10%);
+    }
+}
+
+button {
+    &:focus,
+    &:hover,
+    &:active {
+        outline: none;
+    }
+}
+
+
+//typography
+.text-link {
+    color: $dark-grey;
+    &:hover {
+        color: $aqua-blue;
+        text-decoration: none;
+    }
+}
+
+.text-sm {
+    font-size: 1em!important;
+}
+h1, h2, h3, h4, h5, h6{
+    @include mobile{
+        margin: 0;
+        line-height: 1.4;
+    }
+}
+
+//links
+a {
+    color: $slate-grey;
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: none;
+        color: $aqua-blue;
+        transition: 0.2s;
+        outline: none;
+    }
+}
+.link-white{
+    color: $white;
+}
+
+
+
+//modals
+.modal {
+    &.delete-modal {
+        .modal-dialog {
+            .modal-content {
+                .modal-body {
+                    padding: 2em 3em;
+                }
+            }
+        }
+    }
+    .modal-dialog {
+        border-radius: 0;
+        margin-top: 200px;
+        &.user-profile {
+            margin-top: 60px;
+        }
+        .modal-content {
+            padding: 2em 3em;
+            @include box-shadow(none);
+            @include border-radius(0);
+            border: none;
+            .modal-header {
+                padding: 0;
+                border-bottom: none;
+                .close {
+                    margin-top: 10px;
+                    color: $dark-grey;
+                }
+            }
+            .modal-body {
+                padding: 2em 0;
+                border: none;
+            }
+            .modal-footer {
+                padding: 1em 0;
+                border: none;
+                text-align: center;
+            }
+        }
+    }
+}
+
+//forms
+form,
+.form {
+
+    label {
+        font-weight: 400;
+        margin-bottom: 1em;
+    }
+    input {
+
+        border: none;
+        box-shadow: none;
+        font-size: 1.2em;
+        border-bottom: $grey solid 1px;
+        padding-bottom: 1em;
+        border-radius: 0;
+        padding-left: 0;
+        &:active,
+        &.hover,
+        &:focus {
+            border-bottom: $aqua-blue solid 1px;
+            color: $aqua-blue;
+        }
+        @include tablet {
+            font-size: 1em;
+        }
+        @include mobile{
+            font-size: 1em;
+        }
+    }
+    select {
+        border: none;
+        border-bottom: $grey solid 1px;
+        font-size: 1.2em;
+        padding-left: 0;
+        &:active,
+        &.hover,
+        &:focus {
+            border-bottom: $aqua-blue solid 1px;
+            color: $aqua-blue;
+        }
+        @include tablet {
+            font-size: 1em;
+        }
+    }
+     
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+.form-control {
+    &.btn {
+        border-radius: 4px;
+    }
+    @include box-shadow(none);
+    @include border-radius(0);
+    &:focus {
+        @include box-shadow(none);
+    }
+
+}
+
+textarea {
+    resize: vertical;
+}
+
+select {
+    &.form-control {
+        border: none;
+        border-bottom: $grey solid 1px;
+        font-size: 1.2em;
+        padding-left: 0;
+        &:active,
+        &.hover,
+        &:focus {
+            border-bottom: $aqua-blue solid 1px;
+            color: $aqua-blue;
+        }
+        @include tablet {
+            font-size: 1em;
+        }
+    }
+}
+
+//warning messages
+.error-msg {
+    display: none;
+}
+
+.error {
+    color: $red-orange;
+    input {
+        color: $red-orange;
+    }
+    .error-msg {
+        display: block;
+        color: $red-orange;
+    }
+}

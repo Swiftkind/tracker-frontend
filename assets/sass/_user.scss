@@ -1,0 +1,80 @@
+.user-profile {
+    .avatar-md {
+        width: 5em;
+        height: 5em;
+        margin: -1.5em auto 2em;
+        float: none;
+    }
+    .user-profile-detail {
+        margin-left: 4em;
+        span {
+            display: inline-block;
+            &.dropdown-icon {
+                margin-top: -1em;
+            }
+        }
+    }
+}
+
+.photo {
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.avatar-md {
+    width: 5em;
+    height: 5em;
+    @extend .photo;
+}
+
+.avatar-sm {
+    width: 3em;
+    height: 3em;
+    @extend .photo;
+}
+
+.m-profile-wrapper {
+    background: rgba(9, 122, 179, 1);
+    background: -moz-linear-gradient(top, rgba(9, 122, 179, 1) 0%, rgba(80, 143, 197, 1) 93%, rgba(80, 143, 197, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(9, 122, 179, 1)), color-stop(93%, rgba(80, 143, 197, 1)), color-stop(100%, rgba(80, 143, 197, 1)));
+    background: -webkit-linear-gradient(top, rgba(9, 122, 179, 1) 0%, rgba(80, 143, 197, 1) 93%, rgba(80, 143, 197, 1) 100%);
+    background: -o-linear-gradient(top, rgba(9, 122, 179, 1) 0%, rgba(80, 143, 197, 1) 93%, rgba(80, 143, 197, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(9, 122, 179, 1) 0%, rgba(80, 143, 197, 1) 93%, rgba(80, 143, 197, 1) 100%);
+    background: linear-gradient(to bottom, rgba(9, 122, 179, 1) 0%, rgba(80, 143, 197, 1) 93%, rgba(80, 143, 197, 1) 100%);
+    .active {
+        padding: 1.5em 0;
+        color: $white;
+        font-family: "Open sans", sans-serif;
+        background: {
+            image: url('../images/wave.svg');
+            size: cover;
+        }
+        small {
+            font-weight: 100;
+        }
+        .user-profile {
+            margin-top: 0;
+            .avatar-sm {
+                margin: 1em auto;
+                .img-circle {
+                    border: solid 2px $white;
+                }
+            }
+        }
+    }
+}
+
+.completion-meter {
+    background: #ececec;
+    display: block;
+    height: 5px;
+    margin-top: 1em;
+    .rate {
+        background: #3386be;
+        display: block;
+        height: 5px;
+        width: 80%;
+    }
+}
