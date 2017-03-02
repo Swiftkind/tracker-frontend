@@ -8,4 +8,7 @@
 @import 'main';
 @import 'user';
 @import 'admin';
-@import 'mobile';
+
+@include mobile {
+    @import 'mobile';
+}
