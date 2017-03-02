@@ -1,24 +1,7 @@
+import DashboardController from './components/controllers.es6';
+
 angular
     .module('tracker', [
-        'ui.router'
+        'ui.router',
     ])
-    .config(($urlMatcherFactoryProvider, $stateProvider, $urlRouterProvider) => {
-        'ngInject';
-        $urlRouterProvider.otherwise('/');
-        $urlMatcherFactoryProvider.strictMode(false);
-
-        $stateProvider
-            .state('legacy', {
-                abstract : true,
-                url      : '',
-                template : '<ui-view></ui-view>'
-            })
-            .state('dashboard', {
-                url          : '/',
-                templateUrl  : 'app/templates/login.html',
-                controller   : '',
-                controllerAs : 'ctrl'
-            })
-        ;
-    })
-;
+    .controller('DashboardController', DashboardController);
