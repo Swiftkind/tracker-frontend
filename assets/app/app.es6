@@ -1,7 +1,9 @@
-import DashboardController from './components/controllers.es6';
+import * as ctrl from './components/controllers.es6';
 
 angular
     .module('tracker', [
         'ui.router',
     ])
-    .controller('DashboardController', DashboardController);
+    .controller('LoginController', ctrl.LoginController)
+    .controller('DashboardController', ctrl.DashboardController)
+;
