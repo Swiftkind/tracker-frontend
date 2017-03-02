@@ -1,0 +1,145 @@
+.admin-content {
+    background: $cloud;
+    min-height: 100vh;
+    nav {
+        background: $white;
+    }
+    .user-profile {
+        margin-top: 7px;
+    }
+    .user-profile-detail {
+        margin-left: 4em;
+        margin-top: 7px;
+    }
+    .date {
+        display: table-cell;
+        vertical-align: middle;
+        height: 90px;
+    }
+}
+
+.option-dropdown {
+    background: $white;
+    padding: 1em 1.5em;
+    select {
+        option {
+            font-size: 1em;
+        }
+    }
+}
+
+.ad-section {
+    padding: 1em 2.5em;
+    background: $white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: solid 1px #e8e8e8;
+    @include mobile {
+        margin-top: 0.25em;
+        margin-bottom: 0.25em;
+    }
+}
+.status{
+	padding:1em 0;
+}
+
+.row-head {
+    background: #f5f8fb;
+    border-bottom: solid 1px #0f6299;
+    margin: 1em 0;
+    @include mobile{
+    	padding: 1em 1.5em;
+    	margin-top:0.25em;
+    	margin-bottom: 0.25em;
+    }
+}
+
+.row-content {
+    background: $white;
+    padding: 1em 0;
+    margin: 5px 0;
+    border: solid 1px #e8e8e8;
+}
+
+.t-wrapper {
+    display: table;
+    .t-content {
+        display: table-cell;
+        vertical-align: middle;
+        height: calc(100% - 1em);
+    }
+}
+
+.ad-checkbox {
+    position: relative;
+    //checkbox
+    input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+    .control__indicator {
+        position: absolute;
+        top: 0px;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background: none;
+        border: 1px solid lighten($aqua-blue, 5%);
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .control:hover input ~ .control__indicator,
+    .control input:focus ~ .control__indicator {
+        background: $lightcyan;
+        border: 1px solid $aqua-blue;
+    }
+    .control input:checked ~ .control__indicator {
+        background: #2aa1c0;
+        border: #2aa1c0;
+    }
+    .control:hover input:not([disabled]):checked ~ .control__indicator,
+    .control input:checked:focus ~ .control__indicator {
+        background: #2aa1c0;
+    }
+    .control input:disabled ~ .control__indicator {
+        background: #e6e6e6;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+    .control__indicator:after {
+        content: '';
+        position: absolute;
+        display: none;
+    }
+    .control input:checked ~ .control__indicator:after {
+        display: block;
+    }
+    .control--checkbox .control__indicator:after {
+        left: 8px;
+        top: 4px;
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        width: 4px;
+        height: 10px;
+        transform: rotate(45deg);
+    }
+    .control--checkbox input:disabled ~ .control__indicator:after {
+        border-color: #7b7b7b;
+    }
+}
+.log-title{
+	margin:10px 0 20px;
+	font-weight:700;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex > [class^="col-"],
+.flex > [class*=" col-"] {
+    display: flex;
+    align-items: center;
+}

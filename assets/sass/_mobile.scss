@@ -1,0 +1,166 @@
+//mobile timer
+.content {
+    @include mobile {
+        overflow: hidden;
+        position: fixed;
+    }
+}
+
+.m-tracker {
+    padding: 2em;
+    .time {
+        font-size: 32px;
+        margin-left: 0;
+        margin-top: 0;
+        .name {
+            margin-right: 5px;
+        }
+    }
+    .control {
+        position: relative;
+        .ctrl-btn {
+            width: 70px;
+            height: 70px;
+            z-index: 51;
+            border-width: 3px;
+            top: 15px;
+            right: 10px;
+            .play {
+                top: 6px;
+                left: 25px;
+                span {
+                    font-size: 2.5em;
+                }
+            }
+        }
+    }
+}
+
+#timer {
+    font-family: 'Open Sans';
+    .tracker-log-title {
+        margin: 10px 0;
+        font-weight: 600;
+    }
+    .tracker-log-description {
+        font-weight: 300;
+    }
+    &.start {
+        .m-tracker {
+            background-image: url(../images/m-wave-grey.svg), linear-gradient(to bottom, rgba(239, 245, 245, 1), rgba(239, 245, 245, 1));
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+        }
+    }
+    .time {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    &.started {
+        .m-tracker {
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-image: url(../images/m-wave.svg), linear-gradient(to bottom, rgba(46, 175, 187, 1), rgba(11, 89, 149, 1));
+            color: $white;
+            background-position: bottom;
+            .control {
+                cursor: pointer;
+                &:hover {
+                    .ctrl-btn {}
+                }
+                .ctrl-btn {
+                    border-color: $white;
+                    .square {
+                        border-width: 8.333px;
+                        border-color: rgb(255, 255, 255);
+                        border-style: solid;
+                        border-radius: 3px;
+                        background-color: $white;
+                        position: absolute;
+                        top: 20px;
+                        left: 20px;
+                        width: 25px;
+                        height: 25px;
+                        z-index: 52;
+                        display: block;
+                    }
+                }
+                .play {
+                    display: none;
+                }
+            }
+            .time {
+                .name,
+                .separator {
+                    color: $white;
+                    .time-label {
+                        color: #50b6e1;
+                    }
+                }
+            }
+        }
+        .wave-grey {
+            display: none;
+        }
+    }
+}
+
+.main-content {
+    @include mobile {
+        background: #ebf1f5;
+        .addlog-input {
+            padding: 0.5em 2em 1em;
+            background: #fff;
+            #addlog {
+                border: none;
+                border-bottom: solid 1px #e8e8e8;
+            }
+            .btn {
+                background: none;
+                color: $dark-grey;
+            }
+        }
+        .list {
+            padding: 0;
+            .item {
+                background: $white;
+                padding: 0.5em 1em;
+                border-bottom: solid 1px #e8e8e8;
+                &.selected {
+                    h5 {
+                        font-weight: 600;
+                    }
+                }
+                h5 {
+                    font-weight: 600;
+                }
+                &.input {
+                    margin: 0;
+                    .active {
+                        @include mobile {
+                            width: 100%;
+                            top: 45%;
+                            left: 0;
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+        .date-select {
+            background: #0c5b96;
+            select {
+                background: #0c5b96;
+                color: $white;
+                padding: 0.5em 0;
+                border: none;
+                &:focus {
+                    color: $white;
+                    outline: none;
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}
