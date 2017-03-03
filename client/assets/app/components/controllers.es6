@@ -1,6 +1,16 @@
 class DashboardController {
-    constructor() {
-        this.name = "Timelog Dashboard";
+    constructor($rootScope) {
+        this.$rootScope = $rootScope;
+        this.$rootScope.$on('$stateChangeStart', this.activeDashboard());
+    }
+
+    activeDashboard () {
+      let bodyClass = document.getElementById("main-body").classList;
+
+      bodyClass.add('left-open', 'right-open');
+      return (event, toState, toParams) => {
+        bodyClass.remove('left-open','right-open');
+      }
     }
 }
 
@@ -19,13 +29,21 @@ class SignupController {
             data.birthdate = this.moment(data.birthdate).format('YYYY-MM-DD');
 
             AccountService.signup(data).then((resp) => {
-                this.$state.go('dashboard');
+                this.$state.go('login');
             });
         };
     }
 }
 
+class LoginController {
+    constructor() {
+        this.name = "Log Dashboard";
+    }
+}
+
+
 export { 
     DashboardController,
-    SignupController
+    SignupController,
+    LoginController
 }
