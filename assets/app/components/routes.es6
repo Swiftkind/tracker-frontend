@@ -12,16 +12,22 @@ angular
                 url      : '',
                 template : '<ui-view></ui-view>'
             })
-            .state('dashboard', {
+            .state('login', {
                 url          : '/',
                 templateUrl  : 'app/templates/accounts/login.html',
-                controller   : 'DashboardController',
+                controller   : 'LoginController',
                 controllerAs : 'ctrl'
             })
             .state('signup', {
                 url          : '/signup/',
                 templateUrl  : 'app/templates/accounts/create.html',
                 controller   : '',
+                controllerAs : 'ctrl'
+            })
+            .state('dashboard', {
+                url          : '/dashboard/',
+                templateUrl  : 'app/templates/accounts/dashboard.html',
+                controller   : 'DashboardController',
                 controllerAs : 'ctrl'
             })
         ;

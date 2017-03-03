@@ -1,4 +1,28 @@
 //mobile timer
+
+body {
+    overflow-x: hidden;
+    &.left-open {
+        .left-pane {
+            left: 0;
+        }
+        .main-content {
+            margin-left: 0;
+            transition: 0.2s linear margin-left;
+        }
+    }
+    &.right-open {
+        .right-pane {
+            right: 0;
+            transition: 0.2s linear right;
+        }
+        .main-content {
+            margin-right: 0;
+            transition: 0.2s linear margin-right;
+        }
+    }
+}
+
 .content {
     @include mobile {
         overflow: hidden;
