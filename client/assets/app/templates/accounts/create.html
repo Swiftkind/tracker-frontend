@@ -1,0 +1,118 @@
+<div class="container signup ">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="create-account user-profile">
+                <div class=" signup-form form ">
+                    <form name="signupForm" ng-submit="signupForm.$valid && signup(form)" novalidate>
+                        <h3>Create account</h3>
+                        <div class="avatar-md align-center">
+                            <div class="photo img-circle" style="background-image: url('/images/sample.png');">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">First name
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.first_name.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="text" name="first_name" class="form-control" ng-model="form.first_name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">Last name
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.last_name.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="text" name="last_name" class="form-control" ng-model="form.last_name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">Email
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.email.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="email" name="email" class="form-control" ng-model="form.email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">Contact No.
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.contact.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="text" name="contact" class="form-control" ng-model="form.contact" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">Birthday
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.birthdate.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="date" name="birthdate" class="form-control" ng-model="form.birthdate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">Gender</label>
+                                    <select class="form-control" ng-model="form.gender">Select Gender
+                                        <option value="m">Male</option>
+                                        <option value="f">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-left">Address
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.address.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="text" name="address" class="form-control" ng-model="form.address" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">Position</label>
+                                    <select class="form-control" ng-model="form.position">
+                                        <option value="designer">UI/UX Designer</option>
+                                        <option value="developer">Software Developer</option>
+                                        <option value="management">Management</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">Job title
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.job_title.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="text" name="job_title" class="form-control" ng-model="form.job_title" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-left">Password
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.password.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="password" name="password" class="form-control" ng-model="form.password" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label class="text-left">Repeat password
+                                        <span class="error" ng-show="signupForm.$submitted && signupForm.confirm_password.$error.required" style="color:red">*</span>
+                                    </label>
+                                    <input type="password" name="confirm_password" ng-pattern="form.password" ng-model="confirm_password" class="form-control" required>
+                                    <div ng-show="signupForm.confirm_password.$error.pattern" class="error">
+                                        <label class="error-msg">Passwords Did Not Match</label>
+                                    </div>
+                                    <label class="error-msg">Current password is incorrect</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-md-offset-3">
+                                <button class="btn btn-primary form-control" type="submit">Proceed</button>
+                                <p class="text-center">I have an account. <a href="#">Log in</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

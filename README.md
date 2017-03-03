@@ -1,5 +1,6 @@
 ### Project Setup
-1. Clone the repo
-2. npm install
-3. gulp watch
-4. npm start
+1. clone the repo
+2. cd assets/
+3. npm install
+4. gulp watch
+5. npm start
