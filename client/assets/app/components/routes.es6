@@ -1,6 +1,6 @@
 angular
     .module('tracker')
-    .config(($urlMatcherFactoryProvider, $stateProvider, $urlRouterProvider, $locationProvider) => {
+    .config(($urlMatcherFactoryProvider, $stateProvider, $urlRouterProvider, $locationProvider, TEMPLATE_URL) => {
         'ngInject';
         $locationProvider.hashPrefix('');
         $urlRouterProvider.otherwise('/');
@@ -14,14 +14,14 @@ angular
             })
             .state('login', {
                 url          : '/',
-                templateUrl  : 'app/templates/accounts/login.html',
+                templateUrl  : TEMPLATE_URL + 'accounts/login.html',
                 controller   : 'LoginController',
                 controllerAs : 'ctrl'
             })
             .state('signup', {
                 url          : '/signup/',
-                templateUrl  : 'app/templates/accounts/create.html',
-                controller   : '',
+                templateUrl  : TEMPLATE_URL + 'accounts/create.html',
+                controller   : 'SignupController',
                 controllerAs : 'ctrl'
             })
             .state('dashboard', {
