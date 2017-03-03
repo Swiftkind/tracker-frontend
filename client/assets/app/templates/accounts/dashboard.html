@@ -12,7 +12,7 @@
                     </a>
                     <small>  <p class="text-muted">Swiftkind</p></small>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                        <li><a href="#account-settings" data-toggle="modal">Account Settings</a></li>
+                        <li><a href ng-click="openAccountSetting()">Account Settings</a></li>
                         <li><a href="#">Log out</a></li>
                     </ul>
                 </span>
@@ -327,6 +327,8 @@
         </div>
     </div>
 </div>
+
+<dir ng-include="'app/templates/modals.html'"></dir>
 
 <div class="content visible-xs">
     <div class="left-pane">

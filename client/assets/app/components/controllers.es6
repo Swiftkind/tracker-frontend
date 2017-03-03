@@ -1,7 +1,24 @@
 class DashboardController {
-    constructor($rootScope) {
+    constructor($scope, $rootScope, $uibModal) {
+        'ngInject';
+
+        this._$uibModal = $uibModal;
         this.$rootScope = $rootScope;
         this.$rootScope.$on('$stateChangeStart', this.activeDashboard());
+
+        //MODAL
+        $scope.openAccountSetting = () => {
+            let modalInstance = this._$uibModal.open({
+                windowTemplateUrl   : 'node_modules/angular-ui-bootstrap/template/modal/window.html',
+                animation           : true,
+                backdrop            : 'static',
+                keyboard            : false,
+                templateUrl         : 'account-setting.html',
+                controller          : 'AccountSettingController',
+                controllerAs        : 'ctrl',
+                scope               : $scope
+            });
+        };
     }
 
     activeDashboard () {
@@ -14,6 +31,21 @@ class DashboardController {
     }
 }
 
+//ACCOUNT SETTING CONTROLLER
+class AccountSettingController {
+    constructor($scope, $uibModalInstance) {
+        'ngInject';
+
+        this._$uibModalInstance = $uibModalInstance;
+
+        //EVENT FUNCTION
+        $scope.cancel = () => {
+            this._$uibModalInstance.close();
+        };
+    }
+}
+
+//USER SIGNUP CONTROLLER
 class SignupController {
     constructor($scope, $state, moment, AccountService,) {
         this.moment = moment;
@@ -44,6 +76,7 @@ class LoginController {
 
 export { 
     DashboardController,
+    AccountSettingController,
     SignupController,
     LoginController
 }

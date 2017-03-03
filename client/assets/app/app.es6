@@ -1,5 +1,6 @@
 import { 
     DashboardController,
+    AccountSettingController,
     SignupController,
     LoginController
 } from './components/controllers.es6';
@@ -16,5 +17,6 @@ angular
     .constant('API_URL', 'http://localhost:8080/api/')
     .service('AccountService', AccountService)
     .controller('DashboardController', DashboardController)
+    .controller('AccountSettingController', AccountSettingController)
     .controller('SignupController', SignupController)
     .controller('LoginController', LoginController);
