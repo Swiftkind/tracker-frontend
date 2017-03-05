@@ -67,6 +67,13 @@ class SignupController {
     }
 }
 
+//ADMIN CONTROLLER
+class AdminDashboardController {
+    constructor () {
+
+    }
+}
+
 class LoginController {
     constructor() {
         this.name = "Log Dashboard";
@@ -78,5 +85,6 @@ export {
     DashboardController,
     AccountSettingController,
     SignupController,
-    LoginController
+    LoginController,
+    AdminDashboardController
 }
