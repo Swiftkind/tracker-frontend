@@ -30,6 +30,8 @@ gulp.task('vendors-js', function() {
     'node_modules/angular/angular.js',
     'node_modules/angular-ui-router/release/angular-ui-router.js',
     'node_modules/angular-cookies/angular-cookies.js',
+    'node_modules/angular-storage/dist/angular-storage.min.js',
+    'node_modules/angular-jwt/dist/angular-jwt.min.js',
     'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
     'node_modules/moment/moment.js',
     'node_modules/moment/locale/de.js',

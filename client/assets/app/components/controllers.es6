@@ -1,10 +1,18 @@
 class DashboardController {
-    constructor($scope, $rootScope, $uibModal) {
+    constructor($scope, $state, $rootScope, $uibModal, AuthService) {
         'ngInject';
 
         this._$uibModal = $uibModal;
         this.$rootScope = $rootScope;
         this.$rootScope.$on('$stateChangeStart', this.activeDashboard());
+
+        $scope.logout = () => {
+            AuthService.logout();
+        }
+
+        if (!AuthService.isAuthenticated() && ($state.current.name === 'dashboard')) {
+          $state.go('login');
+        }
 
         //MODAL
         $scope.openAccountSetting = () => {
@@ -74,12 +82,19 @@ class AdminDashboardController {
     }
 }
 
+//LOGIN CONTROLLER
 class LoginController {
-    constructor() {
-        this.name = "Log Dashboard";
+    constructor($scope, $state, AuthService) {
+        
+        if (AuthService.isAuthenticated() && ($state.current.name === 'login')) {
+          $state.go('dashboard');
+        }
+        
+        $scope.userLogin = (form) => {
+            AuthService.login(form)
+        }
     }
 }
-
 
 export { 
     DashboardController,
@@ -87,4 +102,5 @@ export {
     SignupController,
     LoginController,
     AdminDashboardController
-}
+};
+

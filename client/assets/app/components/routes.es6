@@ -1,11 +1,10 @@
 angular
     .module('tracker')
-    .config(($urlMatcherFactoryProvider, $stateProvider, $urlRouterProvider, $locationProvider, TEMPLATE_URL) => {
+    .config(($urlMatcherFactoryProvider, $stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, TEMPLATE_URL ,API_URL) => {
         'ngInject';
         $locationProvider.hashPrefix('');
         $urlRouterProvider.otherwise('/');
         $urlMatcherFactoryProvider.strictMode(false);
-
         $stateProvider
             .state('legacy', {
                 abstract : true,
@@ -37,5 +36,10 @@ angular
                 controllerAs : 'ctrl'
             })
         ;
+    })
+    .run(($rootScope, $http, $location, store) => {
+        let token = store.get('token');
+        if(!token) return;
+        $http.defaults.headers.common.Authorization = 'Bearer ' + token;
     })
 ;
