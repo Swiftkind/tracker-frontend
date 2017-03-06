@@ -2,7 +2,8 @@ import {
     DashboardController,
     AccountSettingController,
     SignupController,
-    LoginController
+    LoginController,
+    AdminDashboardController
 } from './components/controllers.es6';
 
 import AccountService from './components/services.es6';
@@ -19,4 +20,5 @@ angular
     .controller('DashboardController', DashboardController)
     .controller('AccountSettingController', AccountSettingController)
     .controller('SignupController', SignupController)
-    .controller('LoginController', LoginController);
+    .controller('LoginController', LoginController)
+    .controller('AdminDashboardController', AdminDashboardController);

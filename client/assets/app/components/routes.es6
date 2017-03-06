@@ -30,6 +30,12 @@ angular
                 controller   : 'DashboardController',
                 controllerAs : 'ctrl'
             })
+            .state('admin', {
+                url          : '/admin/',
+                templateUrl  : TEMPLATE_URL + 'admin/dashboard.html',
+                controller   : 'AdminDashboardController',
+                controllerAs : 'ctrl'
+            })
         ;
     })
 ;
