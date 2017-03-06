@@ -1,0 +1,611 @@
+<div class="container-fluid content hidden-xs">
+    <div class="left-pane">
+        <div class="user-profile">
+            <div class="avatar-sm pull-left">
+                <div class="photo img-circle" style="background-image: url('/images/sample.png');">
+                </div>
+            </div>
+            <div class="user-profile-detail ">
+                <span class="profile-detail" uib-dropdown on-toggle="toggled(open)"> 
+                    <a href class="text-link" uib-dropdown-toggle>
+                        <strong>Sam Clafin   <span class="dropdown-icon"><i class="icon ion-chevron-down"></i></span></strong>
+                    </a>
+                    <small>  <p class="text-muted">Swiftkind</p></small>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                        <li><a href ng-click="openAccountSetting()">Account Settings</a></li>
+                        <li><a href="#">Log out</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="left-pane-list">
+            <small> <p class="list-title text-muted">SORT BY:</p></small>
+            <ul class="action-list">
+                <li>
+                    <a href="#" class="selected">By Date</a>
+                </li>
+                <li>
+                    <a href="#">By Project</a>
+                </li>
+                <li>
+                    <a href="#">Closed</a>
+                </li>
+            </ul>
+            <small><p class="list-title text-muted">MY PROJECTS</p></small>
+            <ul class="action-list">
+                <li>
+                    <a href="#" class="selected">Swift tracker</a>
+                </li>
+                <li>
+                    <a href="#">SwiftJobs</a>
+                </li>
+                <li>
+                    <a href="#">SwiftLearn</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="right-pane">
+        <div class="timer">
+            <div class="text-left">
+                <h4>Design for swift tracker</h4>
+                <p class="time-started">Time started: 10:00 AM</p>
+                <p class="desc">
+                    Creating UI design for the tracker of swiftkind. This is where the user can view the list of his task with filters. Ther user can also start/stop a specific log everytime.
+                </p>
+            </div>
+            <div class="text-center">
+                <h2 class="time">
+               <span class="name"> 
+                 <span>12</span>
+                 <span class="time-label">H</span>
+
+               </span>
+              <span class="separator"> :</span>
+                 <span  class="name">
+                 <span>06</span>
+                 <span class="time-label">M</span>
+                 </span>
+              <span class="separator"> :</span>
+               <span  class="name">
+                   <span>23</span>
+                   <span class="time-label"> S</span>
+               </span>
+           </h2>
+                <div class="control">
+                    <div class="ctrl-btn">
+                        <div class="square"></div>
+                        <div class="play">
+                            <span class="icon ion-play"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-nav">SwiftTracker</a>
+                </div>
+                <div class="navbar-right navbar-form">
+                    <div class="input-group">
+                        <input type="text" name="" placeholder="Search" aria-describeby="search" class="form-control">
+                        <span class="input-group-addon" id="search"><i class="icon ion-ios-search-strong"></i></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="text-left title">
+            <h2>My Logs</h2>
+            <a href="#" id="left-trigger" class="hidden">left test</a>
+        </div>
+        <div class="list">
+            <div class="form navbar-right">
+                <select class="form-control text-sm ">
+                    <option><small>Today</small></option>
+                    <option><small>Yesterday</small></option>
+                    <option><small>This Week</small></option>
+                    <option><small>This Month</small></option>
+                </select>
+            </div>
+            <div class="item input">
+                <div id="addLog" class="">
+                    <input type="text" name="" placeholder="Add Log +" class="form-control">
+                </div>
+            </div>
+            <div class="item selected">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5 id="right-trigger">Umami crucifix synth, succulents cronut glossier chia</h5>
+                        <p> 10:00 AM</p>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                        <div>
+                            <span class="table-cell">12:06
+                        </span>
+                            <span class="table-cell">
+                            <i class="icon ion-stop"></i>
+                        </span>
+                            <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-more"></i></a>
+                               <ul class="dropdown-menu left">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item ">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5>Sustainable asymmetrical kale chips roof party, etsy ethical health goth.</h5>
+                        <p>--:--</p>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                        <div>
+                            <span class="table-cell">12:06
+                        </span>
+                            <span class="table-cell">
+                            <i class="icon ion-play"></i>
+                        </span>
+                            <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-more"></i></a>
+                                <ul class="dropdown-menu left">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item ">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5>Fingerstache messenger bag knausgaard</h5>
+                        <p>--:--</p>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                        <div>
+                            <span class="table-cell">12:06
+                        </span>
+                            <span class="table-cell">
+                            <i class="icon ion-play"></i>
+                        </span>
+                            <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-more"></i></a>
+                                <ul class="dropdown-menu left">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item ">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5>Swag cardigan ler</h5>
+                        <p> 10:00 AM</p>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                        <div>
+                            <span class="table-cell">12:06
+                        </span>
+                            <span class="table-cell">
+                            <i class="icon ion-android-done"></i>
+                        </span>
+                            <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-more"></i></a>
+                               <ul class="dropdown-menu left">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item ">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5>Fam listicle swag, kinfolk chartreuse lo-fi shabby chic la croix 3 wolf moon vegan</h5>
+                        <p> 10:00 AM</p>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                        <div>
+                            <span class="table-cell">12:06
+                        </span>
+                            <span class="table-cell">
+                            <i class="icon ion-android-done"></i>
+                        </span>
+                            <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-more"></i></a>
+                                <ul class="dropdown-menu left">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item ">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5>Design for swift tracker</h5>
+                        <p> 10:00 AM</p>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                        <div>
+                            <span class="table-cell">12:06
+                        </span>
+                            <span class="table-cell">
+                            <i class="icon ion-android-done"></i>
+                        </span>
+                            <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-more"></i></a>
+                                <ul class="dropdown-menu left">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item ">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5>Everyday carry jianbing farm-to-table</h5>
+                        <p> 10:00 AM</p>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                        <div>
+                            <span class="table-cell">12:06
+                        </span>
+                            <span class="table-cell">
+                            <i class="icon ion-android-done"></i>
+                        </span>
+                            <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-more"></i></a>
+                               <ul class="dropdown-menu left">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item ">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5> Yr humblebrag artisan literally, pork belly ugh 90's tofu try-hard meggings locavore XOXO</h5>
+                        <small> <p  class="text-disable">--:--</p></small>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                        <div>
+                            <span class="table-cell">12:06
+                        </span>
+                            <span class="table-cell">
+                            <i class="icon ion-play"></i>
+                        </span>
+                            <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-more"></i></a>
+                              <ul class="dropdown-menu left">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                                   
+                               </ul>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<dir ng-include="'app/templates/modals.html'"></dir>
+
+<div class="content visible-xs">
+    <div class="left-pane">
+    </div>
+    <div class="right-pane">
+    </div>
+    <div class="main-content ">
+        <div id="timer" class="started">
+            <div class="m-tracker">
+                <h4 class="tracker-log-title">Design for swift tracker</h4>
+                <p class="tracker-log-description">Time started: 10:00 AM</p>
+                <div class="control">
+                    <div class="ctrl-btn">
+                        <div class="square"></div>
+                        <div class="play">
+                            <span class="icon ion-play"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h4 class="time">
+                 <span class="name"> 
+                 <span>12</span>
+                 <span class="time-label">H</span>
+
+                 </span>
+                <span class="separator"> :</span>
+                 <span  class="name">
+                 <span>06</span>
+                 <span class="time-label">M</span>
+                 </span>
+                <span class="separator"> :</span>
+                 <span  class="name">
+                     <span>23</span>
+                     <span class="time-label"> S</span>
+                 </span>
+            </h4>
+                </div>
+            </div><!-- 
+            <div class="wave-blue">
+                <img src="assets/images/m-wave.svg" class="img-responsive">
+            </div> --><!-- 
+            <div class="wave-grey">
+                <img src="assets/images/m-wave-grey.svg" class="img-responsive">
+            </div> -->
+            <div class="form navbar-right text-center date-select">
+                <select class="text-sm ">
+                    <option><small>Today</small></option>
+                    <option><small>Yesterday</small></option>
+                    <option><small>This Week</small></option>
+                    <option><small>This Month</small></option>
+                </select>
+            </div>
+            <div class="input-group addlog-input">
+                <input type="text" name="" placeholder="Add task" arialabelledby="addlog" id="addlog" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn"><i class="icon ion-arrow-right-b"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="container-fluid nopadding">
+            <div class="list">
+                <div class="item selected">
+                    <div class="row flex">
+                        <div class="col-md-11 col-xs-8">
+                            <div class="">
+                                <h5 id="right-trigger">Design for swift tracker</h5>
+                                <small><p> 10:00 AM</p></small>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-4 nopadding">
+                            <div>
+                                <span class="table-cell">12:06</span>
+                                <span class="table-cell"><i class="icon ion-stop"></i></span>
+                                <span class="table-cell">
+                                    <div>
+                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-android-more-vertical"></i></a>
+                                       <ul class="dropdown-menu">
+                                            <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                            <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                                       </ul>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item ">
+                    <div class="row">
+                        <div class="col-md-11 col-xs-8">
+                            <h5>Sustainable asymmetrical kale chips roof party, etsy ethical health goth.</h5>
+                            <small> <p>--:--</p></small>
+                        </div>
+                        <div class="col-md-1 col-xs-4 nopadding">
+                            <div>
+                                <span class="table-cell">12:06</span>
+                                <span class="table-cell"><i class="icon ion-play"></i></span>
+                                <span class="table-cell">
+                                    <div>
+                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-android-more-vertical"></i></a>
+                                        <ul class="dropdown-menu">
+                                          <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                           <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                                       </ul>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item ">
+                    <div class="row flex">
+                        <div class="col-md-11 col-xs-8">
+                            <div>
+                                <h5>Fingerstache messenger bag knausgaard</h5>
+                                <small><p>--:--</p></small>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-4 nopadding">
+                            <div>
+                                <span class="table-cell">12:06</span>
+                                <span class="table-cell"><i class="icon ion-play"></i></span>
+                                <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-android-more-vertical"></i></a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item ">
+                    <div class="row flex">
+                        <div class="col-md-11 col-xs-8">
+                            <div>
+                                <h5>Swag cardigan ler</h5>
+                                <small><p> 10:00 AM</p></small>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-4 nopadding">
+                            <div>
+                                <span class="table-cell">12:06
+                        </span>
+                                <span class="table-cell">
+                            <i class="icon ion-android-done"></i>
+                        </span>
+                                <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-android-more-vertical"></i></a>
+                               <ul class="dropdown-menu">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item ">
+                    <div class="row flex">
+                        <div class="col-md-11 col-xs-8">
+                            <div>
+                                <h5>Fam listicle swag, kinfolk chartreuse lo-fi shabby chic la croix 3 wolf moon vegan</h5>
+                                <small> <p> 10:00 AM</p></small>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-4 nopadding">
+                            <div>
+                                <span class="table-cell">12:06
+                        </span>
+                                <span class="table-cell">
+                            <i class="icon ion-android-done"></i>
+                        </span>
+                                <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-android-more-vertical"></i></a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item ">
+                    <div class="row flex">
+                        <div class="col-md-11 col-xs-8">
+                            <div>
+                                <h5>Design for swift tracker</h5>
+                                <small> <p> 10:00 AM</p></small>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-4 nopadding">
+                            <div>
+                                <span class="table-cell">12:06
+                        </span>
+                                <span class="table-cell">
+                            <i class="icon ion-android-done"></i>
+                        </span>
+                                <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-android-more-vertical"></i></a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item ">
+                    <div class="row flex">
+                        <div class="col-md-11 col-xs-8">
+                            <div>
+                                <h5>Everyday carry jianbing farm-to-table</h5>
+                                <small><p> 10:00 AM</p></small>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-4 nopadding">
+                            <div>
+                                <span class="table-cell">12:06
+                        </span>
+                                <span class="table-cell">
+                            <i class="icon ion-android-done"></i>
+                        </span>
+                                <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-android-more-vertical"></i></a>
+                               <ul class="dropdown-menu">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                               </ul>
+                            </div>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item ">
+                    <div class="row flex">
+                        <div class="col-md-11 col-xs-8">
+                            <div>
+                                <h5> Yr humblebrag artisan literally, pork belly ugh 90's tofu try-hard meggings locavore XOXO</h5>
+                                <small> <p  class="text-disable">--:--</p></small>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-4 nopadding">
+                            <div>
+                                <span class="table-cell">12:06
+                        </span>
+                                <span class="table-cell">
+                            <i class="icon ion-play"></i>
+                        </span>
+                                <span class="table-cell">
+                            <div>
+                               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon ion-android-more-vertical"></i></a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="#edit-modal" data-toggle="modal" >Edit</a></li>
+                                   <li><a href="#delete-modal" data-toggle="modal">Delete</a></li>
+                                   
+                               </ul>
+                            </div>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -26,7 +26,7 @@ angular
             })
             .state('dashboard', {
                 url          : '/dashboard/',
-                templateUrl  : 'app/templates/accounts/dashboard.html',
+                templateUrl  : TEMPLATE_URL + 'accounts/dashboard.html',
                 controller   : 'DashboardController',
                 controllerAs : 'ctrl'
             })
