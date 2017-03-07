@@ -10,9 +10,18 @@ class DashboardController {
             AuthService.logout();
         }
 
-        if (!AuthService.isAuthenticated() && ($state.current.name === 'dashboard')) {
+        if (!AuthService.isAuthenticated()) {
           $state.go('login');
         }
+
+        AuthService.getAuthUser().then(account => {
+            let user_admin = account.is_admin;
+            if ($state.current.name === 'dashboard') {
+              if (user_admin === true) {
+                $state.go('admin')
+              }
+            }
+        });
 
         //MODAL
         $scope.openAccountSetting = () => {
@@ -77,23 +86,47 @@ class SignupController {
 
 //ADMIN CONTROLLER
 class AdminDashboardController {
-    constructor () {
+    constructor ($scope, $state, AuthService) {
+        $scope.logout = () => {
+            AuthService.logout();
+        }
 
+        if (!AuthService.isAuthenticated()){
+          $state.go('login');
+        }
+
+        AuthService.getAuthUser().then(account => {
+            let user_admin = account.is_admin;
+            if ($state.current.name === 'admin') {
+              if (user_admin === false) {
+                $state.go('dashboard');
+              }
+            }
+        });
     }
+
 }
 
 //LOGIN CONTROLLER
 class LoginController {
     constructor($scope, $state, AuthService) {
-        
-        if (AuthService.isAuthenticated() && ($state.current.name === 'login')) {
-          $state.go('dashboard');
-        }
+
+        AuthService.getAuthUser().then(account => {
+            let user_admin = account.is_admin;
+            if (AuthService.isAuthenticated() && ($state.current.name === 'login')) {
+              if (user_admin === true) {
+                $state.go('admin');
+              } else {
+                $state.go('dashboard');
+              }
+            }
+        });
         
         $scope.userLogin = (form) => {
             AuthService.login(form)
         }
     }
+
 }
 
 export { 

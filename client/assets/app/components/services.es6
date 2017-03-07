@@ -8,26 +8,22 @@ class AccountService {
     }
 }
 
-
 class AuthService {
   constructor($state, $q, $http, $window, $location, API_URL, store, jwtHelper) {
     this.$http = $http;
     this.$state = $state;
-    this.store = store;
     this.$location = $location;
     this.$window = $window;
     this.$q = $q;
     this.API_URL = API_URL;
-    this.user_id = undefined;
-    this.loaded = false;
+    this.store = store;
     this.jwtHelper = jwtHelper;
   }
 
   login (form) {
     return this.$http.post(this.API_URL + 'token/', form).then((resp) => {
           this.store.set('token', resp.data.token);
-          this.user_id = this.jwtHelper.decodeToken(resp.data.token).user_id;
-          this.$state.go('dashboard');
+          this.$window.location.reload();
       })
       .catch(error => this.$q.reject(error.data));
   }
@@ -44,7 +40,7 @@ class AuthService {
     let credentials;
 
     credentials = this.getCredentials();
-
+  
     return !!credentials.token;
   }
 
@@ -62,8 +58,11 @@ class AuthService {
     };
   }
 
-}
+  getAuthUser() {
+    return this.$http.get(this.API_URL + 'account/').then(result => result.data );
+  }
 
+}
 
 export {
     AccountService, 
