@@ -6,22 +6,21 @@ class DashboardController {
         this.$rootScope = $rootScope;
         this.$rootScope.$on('$stateChangeStart', this.activeDashboard());
 
+        $scope.user = undefined;
+
+        $scope.$watch( ()=> {
+            return AuthService.loaded;
+        },(isReady) => { 
+            if(!isReady) {
+                AuthService.getAuthUser().then(account => {
+                    $scope.user = account;
+                });
+            }
+        });
+
         $scope.logout = () => {
             AuthService.logout();
         }
-
-        if (!AuthService.isAuthenticated()) {
-          $state.go('login');
-        }
-
-        AuthService.getAuthUser().then(account => {
-            let user_admin = account.is_admin;
-            if ($state.current.name === 'dashboard') {
-              if (user_admin === true) {
-                $state.go('admin')
-              }
-            }
-        });
 
         //MODAL
         $scope.openAccountSetting = () => {
@@ -86,47 +85,56 @@ class SignupController {
 
 //ADMIN CONTROLLER
 class AdminDashboardController {
-    constructor ($scope, $state, AuthService) {
+    constructor ($scope, $state, AuthService, store) {
+        this.$scope = $scope;
+        this.AuthService = AuthService;
+        
+        $scope.user = undefined;
+
         $scope.logout = () => {
             AuthService.logout();
         }
 
-        if (!AuthService.isAuthenticated()){
-          $state.go('login');
-        }
-
-        AuthService.getAuthUser().then(account => {
-            let user_admin = account.is_admin;
-            if ($state.current.name === 'admin') {
-              if (user_admin === false) {
-                $state.go('dashboard');
-              }
+        $scope.$watch( ()=> {
+            return AuthService.loaded;
+        },(isReady) => { 
+            if(!isReady) {
+                AuthService.getAuthUser().then(account => {
+                    $scope.user = account;
+                });
             }
         });
     }
-
 }
 
 //LOGIN CONTROLLER
 class LoginController {
-    constructor($scope, $state, AuthService) {
+    constructor($scope, $state, $window, store, AuthService) {
+
+        $scope.form = {};
+        $scope.errors = {};
+
+        $scope.userLogin = (form) => {
+            AuthService.login(form).then(() =>{
+                $window.location.reload();
+            })
+            .catch((error) => {
+                $scope.errors = error;
+            })
+        }
 
         AuthService.getAuthUser().then(account => {
-            let user_admin = account.is_admin;
             if (AuthService.isAuthenticated() && ($state.current.name === 'login')) {
-              if (user_admin === true) {
+              if (account.is_admin === true) {
+                store.set('account_type', 'admin');
                 $state.go('admin');
               } else {
+                store.set('account_type', 'user');
                 $state.go('dashboard');
               }
             }
         });
-        
-        $scope.userLogin = (form) => {
-            AuthService.login(form)
-        }
     }
-
 }
 
 export { 

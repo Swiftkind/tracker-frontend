@@ -9,62 +9,61 @@ class AccountService {
 }
 
 class AuthService {
-  constructor($state, $q, $http, $window, $location, API_URL, store, jwtHelper) {
-    this.$http = $http;
-    this.$state = $state;
-    this.$location = $location;
-    this.$window = $window;
-    this.$q = $q;
-    this.API_URL = API_URL;
-    this.store = store;
-    this.jwtHelper = jwtHelper;
-  }
+    constructor($state, $q, $http, $window, $location, API_URL, store) {
+        this.$http = $http;
+        this.$state = $state;
+        this.$location = $location;
+        this.$window = $window;
+        this.$q = $q;
+        this.API_URL = API_URL
+        this.store = store;
+        this.loaded = false;
+    }
 
-  login (form) {
-    return this.$http.post(this.API_URL + 'token/', form).then((resp) => {
-          this.store.set('token', resp.data.token);
-          this.$window.location.reload();
-      })
-      .catch(error => this.$q.reject(error.data));
-  }
-
-  logout() {
-    return this.$http.get(this.API_URL + 'logout/').then((r) => {
-            this.cleanCredentials()
-            this.$state.go('login');
+    login (form) {
+        return this.$http.post(this.API_URL + 'token/', form).then(resp => {
+            this.store.set('token',resp.data.token);
         })
         .catch(error => this.$q.reject(error.data));
-  }
+    }
 
-  isAuthenticated () {
-    let credentials;
+    logout() {
+        return this.$http.get(this.API_URL + 'logout/').then(() => {
+            this.cleanCredentials();
+        })
+        .catch(error => this.$q.reject(error.data));
+    }
 
-    credentials = this.getCredentials();
-  
-    return !!credentials.token;
-  }
+    getAuthUser() {
+        return this.$http.get(this.API_URL + 'account/').then((result) => { 
+          return result.data;
+        })
+    }
 
-  cleanCredentials () {
-    this.store.remove('token');
-  }
+    isAuthenticated () {
+        let credentials;
 
-  getCredentials () {
-    let token;
+        credentials = this.getCredentials();
+        return !!credentials.token;
+    }
 
-    token = this.store.get('token');
+    cleanCredentials () {
+        this.store.remove('token');
+        this.store.remove('account_type');
+    }
 
-    return {
-      token: token
-    };
-  }
+    getCredentials () {
+        let token;
 
-  getAuthUser() {
-    return this.$http.get(this.API_URL + 'account/').then(result => result.data );
-  }
+        token = this.store.get('token');
+        return {
+          token: token
+        };
+    }
 
 }
 
 export {
     AccountService, 
-    AuthService
+    AuthService,
 };

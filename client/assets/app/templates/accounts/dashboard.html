@@ -7,13 +7,13 @@
             </div>
             <div class="user-profile-detail ">
                 <span class="profile-detail" uib-dropdown on-toggle="toggled(open)"> 
-                    <a href class="text-link" uib-dropdown-toggle>
-                        <strong>Sam Clafin   <span class="dropdown-icon"><i class="icon ion-chevron-down"></i></span></strong>
+                    <a href="" class="text-link" uib-dropdown-toggle>
+                        <strong>{{ user.email }}<span class="dropdown-icon"><i class="icon ion-chevron-down"></i></span></strong>
                     </a>
-                    <small>  <p class="text-muted">Swiftkind</p></small>
+                    <small><p class="text-muted">Swiftkind</p></small>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                        <li><a href ng-click="openAccountSetting()">Account Settings</a></li>
-                        <li><a href ng-click="logout()" >logout</a></li>
+                        <li><a href="" ng-click="openAccountSetting()">Account Settings</a></li>
+                        <li><a href="#" ng-click="logout()" >Logout</a></li>
                     </ul>
                 </span>
             </div>

@@ -3,18 +3,17 @@
         <div class="col-md-4 col-md-offset-4">
             <form ng-submit="userLogin(form)" name="loginForm" class="login-form form" novalidate>
                 <h3>Login</h3>
+                <span ng-show="errors.non_field_errors" style="color:red">Email or Password is not correct!</span>
                 <div class="form-group">
-                <div ng-show="loginForm.$submitted">
-                    <span class="error" ng-show="loginForm.email.$error.required">This field is required.</span>
-                </div>
-                    <label>Email</label>
+                    <label>Email
+                        <span class="error" ng-show="loginForm.$submitted && loginForm.email.$error.required">* This field is required.</span>
+                    </label>
                     <input type="text" name="email" ng-model="form.email" class="form-control" required>
                 </div>
                 <div class="form-group">
-                <div ng-show="loginForm.$submitted">
-                    <span class="error" ng-show="loginForm.password.$error.required">This field is required.</span>
-                </div>
-                    <label>Password</label>
+                    <label>Password
+                        <span class="error" ng-show="loginForm.$submitted && loginForm.password.$error.required">* This field is required.</span>
+                    </label>
                     <input type="password" name="password" ng-model="form.password" class="form-control" required>
                 </div>
                 <button class="btn btn-primary form-control" type="submit">LOGIN</button>

@@ -21,25 +21,56 @@ angular
                 url          : '/signup/',
                 templateUrl  : TEMPLATE_URL + 'accounts/create.html',
                 controller   : 'SignupController',
-                controllerAs : 'ctrl'
+                controllerAs : 'ctrl',
+                role         : 'anon'
             })
             .state('dashboard', {
                 url          : '/dashboard/',
                 templateUrl  : TEMPLATE_URL + 'accounts/dashboard.html',
                 controller   : 'DashboardController',
-                controllerAs : 'ctrl'
+                controllerAs : 'ctrl',
+                role         : 'user'
             })
             .state('admin', {
                 url          : '/admin/',
                 templateUrl  : TEMPLATE_URL + 'admin/dashboard.html',
                 controller   : 'AdminDashboardController',
-                controllerAs : 'ctrl'
+                controllerAs : 'ctrl',
+                role         : 'admin'
+            })
+            .state('unauthorized', {
+                url: '/unauthorized/',
+                templateUrl: TEMPLATE_URL + 'unauthorized.html',
             })
         ;
     })
-    .run(($rootScope, $http, $location, store) => {
+
+    .run(($rootScope, $q, $state, $http, $location, store, AuthService) => {
         let token = store.get('token');
-        if(!token) return;
-        $http.defaults.headers.common.Authorization = 'Bearer ' + token;
+        
+        if (token) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + token;
+        }
+
+        $rootScope.$on('$stateChangeStart', (event, next, current) => {
+            if (!AuthService.isAuthenticated() && next.name !== 'login') {
+                event.preventDefault();
+                $state.go('login');
+            } 
+        });
+
+        $rootScope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
+            if(toState.role !== undefined && toState.role !== 'anon') {
+                if(store.get('account_type') !== toState.role ) {
+                    $location.path('/unauthorized/');
+                }
+            }  
+        });
+
+        $rootScope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
+            if(AuthService.isAuthenticated() && toState.role === 'anon') {
+                $location.path('/unauthorized/');
+            }
+        });
     })
 ;
