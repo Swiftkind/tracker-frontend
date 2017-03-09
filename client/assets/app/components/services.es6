@@ -18,6 +18,12 @@ class AccountService {
     getAllLogs () {
         return this._$http.get(this._API_URL + 'logs/');
     }
+
+    update(form) {
+        return this.$http.put(this.API_URL + 'account/', form).then(resp => {
+            return resp.data;
+        });
+    }
 }
 
 class AuthService {

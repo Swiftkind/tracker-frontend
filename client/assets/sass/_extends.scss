@@ -57,6 +57,13 @@
     border-left: none;
 }
 
+.input-error-msg {
+    height: 10px;
+    .error {
+        display: block;
+    }
+}
+
 //buttons
 .st-btn-bordered {
     border: solid 2px;
