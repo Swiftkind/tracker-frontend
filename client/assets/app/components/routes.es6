@@ -41,6 +41,7 @@ angular
             .state('unauthorized', {
                 url: '/unauthorized/',
                 templateUrl: TEMPLATE_URL + 'unauthorized.html',
+                role         : 'unauthorized'
             })
         ;
     })
@@ -53,15 +54,23 @@ angular
         }
 
         $rootScope.$on('$stateChangeStart', (event, next, current) => {
-            if (!AuthService.isAuthenticated() && next.name !== 'login') {
+            if (!AuthService.isAuthenticated() && current.name === 'login'){
+                event.preventDefault();
+                $state.go('login');
+            } 
+        });
+
+        $rootScope.$on('$stateChangeStart', (event, next, current, toState) => {
+            if (!AuthService.isAuthenticated() && next.name === 'unauthorized') {
                 event.preventDefault();
                 $state.go('login');
             } 
         });
 
         $rootScope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
-            if(toState.role !== undefined && toState.role !== 'anon') {
+            if(toState.role !== undefined && toState.role != 'anon') {
                 if(store.get('account_type') !== toState.role ) {
+                    event.preventDefault();
                     $location.path('/unauthorized/');
                 }
             }  
