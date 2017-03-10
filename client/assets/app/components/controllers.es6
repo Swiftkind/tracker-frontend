@@ -2,6 +2,7 @@ class DashboardController {
     constructor($scope, $state, $rootScope, $uibModal, moment, AccountService, AuthService) {
         'ngInject';
 
+        this._$uibModal = $uibModal;
         this._$moment = moment;
         this.$rootScope = $rootScope;
         this.$rootScope.$on('$stateChangeStart', this.activeDashboard());
