@@ -4,6 +4,24 @@
             <div class="container">
                 <div class="navbar-header">
                     <a href="#" class="navbar-nav">SwiftTracker</a>
+                    </br>
+                    <div class="user-profile">
+                        <div class="avatar-sm pull-left">
+                            <div class="photo img-circle" style="background-image: url('/images/sample.png');">
+                            </div>
+                        </div>
+                        <div class="user-profile-detail ">
+                            <span class="profile-detail" uib-dropdown on-toggle="toggled(open)"> 
+                                <a href="" class="text-link" uib-dropdown-toggle>
+                                    <strong>{{ user.email }}<span class="dropdown-icon"><i class="icon ion-chevron-down"></i></span></strong>
+                                </a>
+                                <small><p class="text-muted">Swiftkind</p></small>
+                                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                                    <li><a href="#" ng-click="logout()" >Logout</a></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div class="navbar-right navbar-form">
                     <div class="input-group">
