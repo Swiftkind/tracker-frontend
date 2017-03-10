@@ -1,10 +1,22 @@
 class AccountService {
     constructor($http, API_URL) {
-        this.$http = $http;
-        this.API_URL = API_URL;
+        this._$http = $http;
+        this._API_URL = API_URL;
     }
     signup(form) {
-        return this.$http.post(this.API_URL + 'signup/', form);
+        return this._$http.post(this._API_URL + 'signup/', form);
+    }
+    play(data) {
+        return this._$http.post(this._API_URL + 'timelog/', data);
+    }
+    getCurrentLog () {
+        return this._$http.get(this._API_URL + 'timelog/');
+    }
+    getProjects () {
+        return this._$http.get(this._API_URL + 'projects/');
+    }
+    getAllLogs () {
+        return this._$http.get(this._API_URL + 'logs/');
     }
 }
 
