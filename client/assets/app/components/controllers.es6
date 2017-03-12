@@ -145,6 +145,76 @@ class DashboardController {
             },500)
         };
 
+        //LOGS FILTERING
+        $scope.getLogs = (project_id) => {
+            let key = $scope.logsKey;
+            let currDate = new Date();
+
+            if (project_id){
+                $scope.logs = [];
+                $scope.allLogs.map((log) => {
+                    if(log.project == project_id) {
+                        return $scope.logs.push(log)
+                    }
+                });
+            };
+            if(key == 'today') {
+                let today = currDate.getDate();
+                let currentLogs = $scope.logs;
+
+                $scope.logs = currentLogs.filter((log) => {
+                    let date = this._$moment(log.start).toDate().getDate();
+                    if(today == date) {
+                        return log;
+                    }
+                });
+            }else if(key == 'yesterday') {
+                let yesterday = currDate.getDate()-1;
+                let currentLogs = $scope.logs;
+
+                $scope.logs = currentLogs.filter((log) => {
+                    let date = this._$moment(log.start).toDate().getDate();
+                    if(yesterday == date) {
+                        return log;
+                    }
+                });
+            }else if(key == 'week') {
+                let currentLogs = $scope.logs;
+                // First day of the week
+                let firstday = currDate.getDate() - currDate.getDay();
+                // Last day of the week
+                let lastday = firstday + 6; 
+
+                $scope.logs = currentLogs.filter((log) => {
+                    let date = this._$moment(log.start).toDate().getDate();
+                    if(date >= firstday && date <= lastday ) {
+                        return log;
+                    }
+                });
+            }else if(key == 'month') {
+                let currentLogs = $scope.logs;
+                // First day of the month
+                let firstday = (new Date(currDate.getFullYear(), currDate.getMonth(), 1)).getDate();
+                // Last day of the month
+                let lastday = (new Date(currDate.getFullYear(), currDate.getMonth() + 1, 0)).getDate();
+
+                $scope.logs = currentLogs.filter((log) => {
+                    let date = this._$moment(log.start).toDate().getDate();
+                    if(date >= firstday && date <= lastday ) {
+                        return log;
+                    }
+                });
+            }else if(key == 'approved') {
+                let currentLogs = $scope.logs;
+
+                $scope.logs = currentLogs.filter((log) => {
+                    if(log.is_approved == true) {
+                        return log;
+                    }
+                });
+            }
+        };
+
         //MODAL
         $scope.openAccountSetting = () => {
             let modalInstance = this._$uibModal.open({

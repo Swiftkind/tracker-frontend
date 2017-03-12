@@ -19,18 +19,6 @@
             </div>
         </div>
         <div class="left-pane-list">
-            <small> <p class="list-title text-muted">SORT BY:</p></small>
-            <ul class="action-list">
-                <li>
-                    <a href="#" class="selected">By Date</a>
-                </li>
-                <li>
-                    <a href="#">By Project</a>
-                </li>
-                <li>
-                    <a href="#">Closed</a>
-                </li>
-            </ul>
             <small><p class="list-title text-muted">MY PROJECTS</p></small>
             <ul class="action-list" ng-repeat="project in projects">
                 <li>
@@ -110,7 +98,7 @@
                 </div>
                 <div class="navbar-right navbar-form">
                     <div class="input-group">
-                        <input type="text" name="" placeholder="Search" aria-describeby="search" class="form-control">
+                        <input type="text" name="" ng-model="searchKey" placeholder="Search" aria-describeby="search" class="form-control">
                         <span class="input-group-addon" id="search"><i class="icon ion-ios-search-strong"></i></span>
                     </div>
                 </div>
@@ -122,11 +110,13 @@
         </div>
         <div class="list">
             <div class="form navbar-right">
-                <select class="form-control text-sm ">
-                    <option><small>Today</small></option>
-                    <option><small>Yesterday</small></option>
-                    <option><small>This Week</small></option>
-                    <option><small>This Month</small></option>
+                <select class="form-control text-sm " ng-model="logsKey" ng-change="getLogs(project.id)">
+                    <option label="FILTER LOGS" disabled selected="selected"></option>
+                    <option value="today"><small>Today</small></option>
+                    <option value="yesterday"><small>Yesterday</small></option>
+                    <option value="week"><small>This Week</small></option>
+                    <option value="month"><small>This Month</small></option>
+                    <option value="approved"><small>Approved</small></option>
                 </select>
             </div>
             <div class="item input" ng-hide="tracking">
@@ -135,7 +125,7 @@
                     <button ng-click="createNewLog(log); log.memo=''" ng-disabled="!log.memo">Add</button>
                 </div>
             </div>
-            <div class="item selected" ng-repeat-start="log in logs | orderBy:'start':true" ng-if="$first" ng-click="selectLog(log)">
+            <div class="item selected" ng-repeat-start="log in logs| orderBy:'start':true | filter:searchKey" ng-if="$first" ng-click="selectLog(log)">
                 <div class="row">
                     <div class="col-md-11">
                         <h5>{{ log.memo }}</h5>
