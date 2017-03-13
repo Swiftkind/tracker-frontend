@@ -287,7 +287,7 @@ class SignupController {
             data.birthdate = this.moment(data.birthdate).format('YYYY-MM-DD');
 
             AccountService.signup(data).then((resp) => {
-                this.$state.go('dashboard');
+                this.$state.go('login');
             }).catch((err) => {
                 console.log(err);
             });

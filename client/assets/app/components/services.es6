@@ -4,7 +4,7 @@ class AccountService {
         this._API_URL = API_URL;
     }
     signup(form) {
-        return this._$http.post(this._API_URL + 'signup/', form);
+        return this._$http.post(this._API_URL + 'account/', form);
     }
     play(data) {
         return this._$http.post(this._API_URL + 'timelog/', data);
@@ -20,7 +20,7 @@ class AccountService {
     }
 
     update(form) {
-        return this.$http.put(this.API_URL + 'account/', form).then(resp => {
+        return this._$http.put(this._API_URL + 'account/', form).then(resp => {
             return resp.data;
         });
     }
