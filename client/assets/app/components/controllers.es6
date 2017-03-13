@@ -1,5 +1,6 @@
 class DashboardController {
     constructor($scope, $state, $rootScope, $uibModal, moment, AccountService, AuthService) {
+
         'ngInject';
 
         this._$uibModal = $uibModal;
@@ -22,6 +23,7 @@ class DashboardController {
             if(!isReady) {
                 AuthService.getAuthUser().then(account => {
                     $scope.user = account;
+                    $scope.user.birthdate = moment(account.birthdate).toDate();
                 });
             }
         });
@@ -228,6 +230,8 @@ class DashboardController {
                 scope               : $scope
             });
         };
+
+
     }
 
     activeDashboard () {
@@ -242,21 +246,34 @@ class DashboardController {
 
 //ACCOUNT SETTING CONTROLLER
 class AccountSettingController {
-    constructor($scope, $uibModalInstance) {
+    constructor($scope, $uibModalInstance, moment, AccountService) {
         'ngInject';
-
         this._$uibModalInstance = $uibModalInstance;
 
         //EVENT FUNCTION
         $scope.cancel = () => {
             this._$uibModalInstance.close();
         };
+
+        $scope.errors;
+
+        $scope.updateProfile = (form) => {
+            let data = angular.copy(form);
+            data.birthdate = moment(data.birthdate).format('YYYY-MM-DD');
+
+            AccountService.update(data).then((resp) => {
+                this._$uibModalInstance.close();
+            })
+            .catch((error) => {
+                $scope.errors = error.data;
+            })
+        }
     }
 }
 
 //USER SIGNUP CONTROLLER
 class SignupController {
-    constructor($scope, $state, moment, AccountService,) {
+    constructor($scope, $state, moment, AccountService) {
         this.moment = moment;
         this.$state = $state;
         $scope.form = {
@@ -270,7 +287,7 @@ class SignupController {
             data.birthdate = this.moment(data.birthdate).format('YYYY-MM-DD');
 
             AccountService.signup(data).then((resp) => {
-                this.$state.go('dashboard');
+                this.$state.go('login');
             }).catch((err) => {
                 console.log(err);
             });
