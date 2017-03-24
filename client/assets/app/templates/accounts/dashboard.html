@@ -25,7 +25,7 @@
             <small><p class="list-title text-muted">MY PROJECTS</p></small>
             <ul class="action-list" ng-repeat="project in projects">
                 <li>
-                    <a href="" class="selected" ng-click="viewProjectLogs(project)">{{project.name}}</a>
+                    <a href="" ng-click="viewProjectLogs(project)" ng-class="{'selected':project.id==selectedProject.id}">{{project.name}}</a>
                 </li>
             </ul>
         </div>
@@ -36,7 +36,7 @@
                 <h4>{{selectedLog.memo}}</h4>
                 <p class="time-started">Time started: {{ selectedLog.start | date:'hh:mm:ss a'}}</p>
                 <p class="desc">
-                    Creating UI design for the tracker of swiftkind. This is where the user can view the list of his task with filters. Ther user can also start/stop a specific log everytime.
+                    {{selectedLog.description}}
                 </p>
             </div>
             <div class="text-center">
@@ -97,7 +97,7 @@
         <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a href="" class="navbar-nav">{{project.name}}</a>
+                    <a href="" class="navbar-nav">{{selectedProject.name}}</a>
                 </div>
                 <div class="navbar-right navbar-form">
                     <div class="input-group">
@@ -113,67 +113,54 @@
         </div>
         <div class="list">
             <div class="form navbar-right">
-                <select class="form-control text-sm " ng-model="logsKey" ng-change="getLogs(project.id)">
+                <select class="form-control text-sm " ng-model="logsKey" ng-change="getLogs(selectedProject.id)">
                     <option label="FILTER LOGS" disabled selected="selected"></option>
                     <option value="today"><small>Today</small></option>
                     <option value="yesterday"><small>Yesterday</small></option>
                     <option value="week"><small>This Week</small></option>
                     <option value="month"><small>This Month</small></option>
                     <option value="approved"><small>Approved</small></option>
+                    <option value="all"><small>All Logs</small></option>
                 </select>
             </div>
             <div class="item input" ng-hide="tracking">
                 <div id="addLog" class="">
-                    <input type="text" name="" ng-model="log.memo" placeholder="Add Task +" class="form-control">
-                    <button ng-click="createNewLog(log); log.memo=''" ng-disabled="!log.memo">Add</button>
+                    <input type="text" name="" ng-model="newLog.memo" placeholder="Add Task +" class="form-control">
+                    <button class="btn btn-success" ng-click="createNewLog(newLog); newLog.memo=''" ng-disabled="!newLog.memo">Add</button>
                 </div>
             </div>
-            <div class="item selected" ng-repeat-start="log in logs| orderBy:'start':true | filter:searchKey" ng-if="$first" ng-click="selectLog(log)">
+            <div class="item" ng-repeat="(key, value) in logs| groupBy: 'memo'" ng-click="selectLog(value)" ng-class="{'selected':key==selectedLog.memo}">
                 <div class="row">
                     <div class="col-md-11">
-                        <h5>{{ log.memo }}</h5>
-                        <p>{{ log.start | date:'MMM-dd-yyyy | hh:mm:ss a'}}</p>
+                        <h4>{{ key }}
+                            <i class="icon ion-chevron-down" ng-show="!showLogs" ng-click="showLogs = !showLogs"></i>
+                            <i class="icon ion-chevron-up" ng-show="showLogs" ng-click="showLogs = !showLogs"></i>
+                        </h4>
                     </div>
                     <div class="col-md-1 nopadding">
                         <div>
-                            <span class="table-cell" ng-show="ongoing||stopped"><timer start-time="started">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></span>
-                            <span class="table-cell" ng-hide="reloaded"><timer interval="1000" autostart="false">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></span>
-                            <span class="table-cell" ng-hide="tracking||!reloaded||ongoing||stopped">{{ log.seconds*1000 | duration:'hh:mm:ss' }}</span>
-                            <span class="table-cell" ng-hide="tracking"><i class="icon ion-play" ng-click="startTracker(log)"></i></span>
-                            <span class="table-cell" ng-show="tracking"><i class="icon ion-stop" ng-click="stopTracker(log)"></i></span>
+                            <span class="table-cell" ng-show="ongoing && key==currentLog.memo || stopped && key==currentLog.memo"><timer start-time="started">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></span>
+                            <span class="table-cell" ng-show="!ongoing && key==currentLog.memo && !stopped"><timer interval="1000" autostart="false">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></span>
+                            <span class="table-cell" ng-hide="key==currentLog.memo || stopped && key==currentLog.memo">00:00:00</timer></span>
+                            <span class="table-cell" ng-show="!tracking || key!=currentLog.memo"><i class="icon ion-play" ng-click="startTracker(value[0])"></i></span>
+                            <span class="table-cell" ng-show="tracking && key==currentLog.memo"><i class="icon ion-stop" ng-click="stopTracker(value[0])"></i></span>
                             <span class="table-cell">
                                 <div uib-dropdown on-toggle="toggled(open)">
                                     <a href="" class="dropdown-toggle"  uib-dropdown-toggle> <i class="icon ion-more"></i></a>
                                     <ul class="dropdown-menu-right" uib-dropdown-menu>
-                                        <li><a href="" data-toggle="modal" >Edit</a></li>
+                                        <li><a href="" ng-click="openUpdateLog(log)">Edit</a></li>
                                         <li><a href="" data-toggle="modal">Delete</a></li>
                                     </ul>
                                 </div>
                             </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="item " ng-repeat-end ng-click="selectLog(log)" ng-if="!$first">
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>{{ log.memo }}</h5>
-                        <p>{{ log.start | date:'MMM-dd-yyyy | hh:mm:ss a'}}</p>
-                    </div>
-                    <div class="col-md-1 nopadding">
-                        <div>
-                            <span class="table-cell">{{ log.seconds*1000 | duration:'hh:mm:ss' }}</span>
-                            <span class="table-cell"><i class="icon ion-play" ng-click="startTracker(log)"></i></span>
-                            <span class="table-cell">
-                                <div uib-dropdown on-toggle="toggled(open)">
-                                    <a href="" class="dropdown-toggle"  uib-dropdown-toggle> <i class="icon ion-more"></i></a>
-                                    <ul class="dropdown-menu-right" uib-dropdown-menu>
-                                        <li><a href="" data-toggle="modal" >Edit</a></li>
-                                        <li><a href="" data-toggle="modal">Delete</a></li>
-                                    </ul>
-                                </div>
+
+                    <div class="col-md-11" ng-show="showLogs" ng-repeat="log in value | orderBy:'start':true">
+                        <p><span class="icon" ng-class="{'ion-clock':log.is_approved==false,'ion-android-done':log.is_approved==true}">
+                            {{ log.start | date:'MMM-dd-yyyy | hh:mm:ss a'}} - {{ log.end | date:'hh:mm:ss a'}}
                             </span>
-                        </div>
+                        </p>
                     </div>
                 </div>
             </div>

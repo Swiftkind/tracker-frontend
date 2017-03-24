@@ -11,7 +11,9 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "angular": "~1.6.2",
+    "angular-animate": "^1.6.2",
     "angular-duration-format": "^1.0.1",
+    "angular-filter": "^0.5.15",
     "angular-jwt": "^0.1.9",
     "angular-moment": "^1.0.1",
     "angular-storage": "0.0.15",

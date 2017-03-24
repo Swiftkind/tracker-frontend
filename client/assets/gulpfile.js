@@ -38,8 +38,8 @@ gulp.task('vendors-js', function() {
     'node_modules/angular-duration-format/dist/angular-duration-format.js',
     'node_modules/angular-timer/dist/angular-timer.js',
     'node_modules/angular-timer/bower_components/humanize-duration/humanize-duration.js',
-    'node_modules/ng-file-upload/dist/ng-file-upload.min.js'
-    ])
+    'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
+    'node_modules/angular-filter/dist/angular-filter.js'])
     .pipe(concat('vendors.js'))
     .pipe(gulp.dest('dist/js'));
 });

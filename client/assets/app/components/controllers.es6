@@ -1,5 +1,5 @@
 class DashboardController {
-    constructor($scope, $state, $rootScope, $uibModal, moment, AccountService, AuthService) {
+    constructor($scope, $state, $window, $rootScope, $uibModal, moment, AccountService, AuthService) {
 
         'ngInject';
 
@@ -38,27 +38,31 @@ class DashboardController {
 
             $scope.projects = data;
             if (data.length > 0) {
-                $scope.project = data[0];
+                $scope.selectedProject = data[0];
             }
         });
 
         ///get all user's logs
-        AccountService.getAllLogs().then((resp) => {
-            $scope.allLogs = resp.data;
-            let project = $scope.project;
+        ($scope.completeLogs = () => {
+            AccountService.getAllLogs().then((resp) => {
+                $scope.allLogs = resp.data;
+                let project = $scope.selectedProject;
 
-            $scope.allLogs.map((log) => {
-                if(log.project == project.id) {
-                    return $scope.logs.push(log)
-                }
+                let allLogs = [];
+                $scope.allLogs.map((log) => {
+                    if(log.project == project.id) {
+                        return allLogs.push(log);
+                    }
+                });
+                $scope.logs = allLogs.slice(0);
             });
-        });
+        })();
 
         ///get current running log (if available)
         AccountService.getCurrentLog().then((resp) => {
             let data = resp.data;
             if (data.project != null) {
-                $scope.selectedLog = data;
+                $scope.selectedLog = $scope.currentLog = data;
                 $scope.ongoing = true;
 
                 let date = this._$moment(data.start).toDate();
@@ -66,7 +70,7 @@ class DashboardController {
 
                 $scope.projects.find((project)  => {
                     if(project.id == data.project) {
-                        return $scope.project = project
+                        return $scope.selectedProject = project;
                     }
                 });
             }
@@ -74,12 +78,13 @@ class DashboardController {
         });
 
         ///EVENT FUNCTIONS
-        $scope.selectLog = (log) => {
+        $scope.selectLog = (logs) => {
+            let log = logs.slice(-1)[0];
             $scope.selectedLog = log;
         };
 
         $scope.viewProjectLogs = (project) => {
-            $scope.project = project;
+            $scope.selectedProject = project;
             $scope.logs = [];
             $scope.allLogs.map((log) => {
                 if(log.project == project.id) {
@@ -94,7 +99,7 @@ class DashboardController {
                 "memo"    : newLog.memo,
                 "timein"  : true
             }
-            AccountService.play(data).then((resp) => {
+            AccountService.playTracker(data).then((resp) => {
                 let data =resp.data;
                 $scope.logs.push(data);
                 $scope.selectedLog = data;
@@ -109,14 +114,15 @@ class DashboardController {
         }
 
         $scope.startTracker = (selectedLog) => {
+            $scope.started = (new Date()).getTime();
             let data = {
                 "project" : selectedLog.project,
                 "memo"    : selectedLog.memo,
                 "timein"  : true
             }
 
-            AccountService.play(data).then((resp) => {
-                $scope.logs.push(resp.data);
+            AccountService.playTracker(data).then((resp) => {
+                $scope.currentLog = resp.data;
                 $scope.tracking = true;
                 $scope.reloaded = false;
             }).catch((err) => {
@@ -133,9 +139,10 @@ class DashboardController {
                 "memo"    : selectedLog.memo,
                 "timein"  : false
             }
-            AccountService.play(data).then((resp) => {
+            AccountService.playTracker(data).then((resp) => {
                 $scope.tracking = false;
                 $scope.ongoing = false;
+                $scope.completeLogs();
                 if ($scope.reloaded){
                     $scope.stopped = true;
                 }
@@ -214,6 +221,8 @@ class DashboardController {
                         return log;
                     }
                 });
+            }else {
+                return $scope.logs;
             }
         };
 
@@ -231,7 +240,25 @@ class DashboardController {
             });
         };
 
+        $scope.openUpdateLog = (log) => {
+            $scope.selectedLog = log;
 
+            let modalInstance = this._$uibModal.open({
+                windowTemplateUrl   : 'node_modules/angular-ui-bootstrap/template/modal/window.html',
+                animation           : true,
+                backdrop            : 'static',
+                keyboard            : false,
+                templateUrl         : 'update-log.html',
+                controller          : 'UpdateLogController',
+                controllerAs        : 'ctrl',
+                scope               : $scope,
+                resolve             : {
+                                log : () => {
+                                        return  $scope.selectedLog;
+                                    }
+                }
+            });
+        };
     }
 
     activeDashboard () {
@@ -289,6 +316,31 @@ class AccountSettingController {
                 $scope.change = false;
             }); 
         }
+    }
+}
+
+//UPDATE LOG CONTROLLER
+class UpdateLogController {
+    constructor($scope, moment, $uibModalInstance, AccountService) {
+        'ngInject';
+        this._$uibModalInstance = $uibModalInstance;
+        this._moment = moment;
+
+        $scope.updateLog = (log) => {
+            let data = angular.copy(log);
+
+            data.start = this._moment(data.start).toDate();
+            data.end = this._moment(data.end).toDate();
+            AccountService.updateLog(data).then((resp) => {
+                $scope.selectedLog = resp.data;
+            }).catch((err) => {
+                console.log(err);
+            });
+        };
+        //EVENT FUNCTION
+        $scope.cancel = () => {
+            this._$uibModalInstance.close();
+        };
     }
 }
 
@@ -375,6 +427,7 @@ export {
     AccountSettingController,
     SignupController,
     LoginController,
-    AdminDashboardController
+    AdminDashboardController,
+    UpdateLogController
 };
 
