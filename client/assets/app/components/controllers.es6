@@ -95,12 +95,13 @@ class DashboardController {
 
         $scope.createNewLog = (newLog) => {
             let data = {
-                "project" : $scope.project.id,
+                "project" : $scope.selectedProject.id,
                 "memo"    : newLog.memo,
                 "timein"  : true
             }
             AccountService.playTracker(data).then((resp) => {
                 let data =resp.data;
+                $scope.currentLog = data;
                 $scope.logs.push(data);
                 $scope.selectedLog = data;
                 $scope.tracking = true;
@@ -225,6 +226,14 @@ class DashboardController {
                 return $scope.logs;
             }
         };
+
+        $scope.$watch(() => {
+            if ($scope.tracking) {
+                $window.onbeforeunload = (event) => {
+                    return "Tracker still running!";
+                };
+            };
+        });
 
         //MODAL
         $scope.openAccountSetting = () => {
