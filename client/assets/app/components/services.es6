@@ -54,6 +54,9 @@ class AccountService {
           return result.data;
         })
     }
+    invite (data) {
+        return this._$http.post(this._API_URL + 'invite/', data);
+    } 
 }
 
 class AuthService {

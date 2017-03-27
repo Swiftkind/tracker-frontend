@@ -380,6 +380,7 @@ class SignupController {
 //ADMIN CONTROLLER
 class AdminDashboardController {
     constructor ($scope, $state, AuthService, AccountService, store) {
+        'ngInject';
         this.$scope = $scope;
         this.AuthService = AuthService;
         this.AccountService = AccountService;
@@ -397,7 +398,19 @@ class AdminDashboardController {
                 $scope.user = this.AccountService.user;
             }
         });
-        
+
+        $scope.inviteUser = () => {
+            let data = {
+                "project" : "This is the project",
+                "email"   : "jerumbaoa@gmail.com",
+            }
+
+            AccountService.invite(data).then((resp) => {
+                console.log('Successfully invited');
+            }).catch((err) => {
+                console.log(err);
+            });
+        };
     }
 }
 
