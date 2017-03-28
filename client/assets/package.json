@@ -34,5 +34,8 @@
     "run-sequence": "^1.2.2",
     "webpack": "^1.12.2",
     "webpack-stream": "^3.2.0"
+  },
+  "dependencies": {
+    "ng-file-upload": "^12.2.13"
   }
 }

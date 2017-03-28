@@ -7,8 +7,8 @@ class DashboardController {
         this._$moment = moment;
         this.$rootScope = $rootScope;
         this.$rootScope.$on('$stateChangeStart', this.activeDashboard());
+        this.AccountService = AccountService;
 
-        $scope.user = undefined;
         $scope.tracking = false;
         $scope.reloaded = true;
         $scope.ongoing = false;
@@ -16,21 +16,21 @@ class DashboardController {
         $scope.logs = [];
         $scope.projects = [];
         $scope.project = undefined;
-
-        $scope.$watch( ()=> {
-            return AuthService.loaded;
-        },(isReady) => { 
-            if(!isReady) {
-                AuthService.getAuthUser().then(account => {
-                    $scope.user = account;
-                    $scope.user.birthdate = moment(account.birthdate).toDate();
-                });
-            }
-        });
-
+        $scope.user = undefined;
+        
         $scope.logout = () => {
             AuthService.logout();
         }
+
+        /// get current user data
+        $scope.$watch( ()=> {
+            return AccountService.loaded;
+        },(isReady) => { 
+            if(!isReady) {
+                $scope.user = AccountService.user;
+                $scope.user.birthdate = moment(AccountService.user.birthdate).toDate();
+            }
+        });
 
         ///get all projects of authenticated user
         AccountService.getProjects().then((resp) => {
@@ -246,15 +246,10 @@ class DashboardController {
 
 //ACCOUNT SETTING CONTROLLER
 class AccountSettingController {
-    constructor($scope, $uibModalInstance, moment, AccountService) {
+    constructor($scope, $uibModalInstance, moment, AccountService, AuthService) {
         'ngInject';
         this._$uibModalInstance = $uibModalInstance;
-
-        //EVENT FUNCTION
-        $scope.cancel = () => {
-            this._$uibModalInstance.close();
-        };
-
+        $scope.uploadSuccess = false;
         $scope.errors;
 
         $scope.updateProfile = (form) => {
@@ -267,6 +262,32 @@ class AccountSettingController {
             .catch((error) => {
                 $scope.errors = error.data;
             })
+        }
+
+        $scope.uploadPhoto = (form) => {
+            AccountService.uploadPhoto(form).then((resp) => {
+                $scope.uploadSuccess = true;
+                $scope.user.profile_photo = resp.data.profile_photo;
+                $scope.change = false;
+            })
+            .catch((error) => {
+                console.log('error');
+            })
+        }
+
+        //EVENT FUNCTION
+        $scope.cancel = () => {
+            this._$uibModalInstance.close();
+            AccountService.getCurrentUser().then(account => {
+                $scope.user = account;
+            }); 
+        };
+
+        $scope.cancelUpload = () => {
+            AccountService.getCurrentUser().then(account => {
+                $scope.user.profile_photo = account.profile_photo;
+                $scope.change = false;
+            }); 
         }
     }
 }
@@ -297,9 +318,10 @@ class SignupController {
 
 //ADMIN CONTROLLER
 class AdminDashboardController {
-    constructor ($scope, $state, AuthService, store) {
+    constructor ($scope, $state, AuthService, AccountService, store) {
         this.$scope = $scope;
         this.AuthService = AuthService;
+        this.AccountService = AccountService;
         
         $scope.user = undefined;
 
@@ -308,14 +330,13 @@ class AdminDashboardController {
         }
 
         $scope.$watch( ()=> {
-            return AuthService.loaded;
+            return this.AccountService.loaded;
         },(isReady) => { 
             if(!isReady) {
-                AuthService.getAuthUser().then(account => {
-                    $scope.user = account;
-                });
+                $scope.user = this.AccountService.user;
             }
         });
+        
     }
 }
 

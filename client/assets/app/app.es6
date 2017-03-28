@@ -19,7 +19,8 @@ angular
         'angular-storage',
         'angular-jwt',
         'angular-duration-format',
-        'timer'
+        'timer',
+        'ngFileUpload',
     ])
     .constant('TEMPLATE_URL', 'app/templates/')
     .constant('API_URL', 'http://127.0.0.1:8080/api/')

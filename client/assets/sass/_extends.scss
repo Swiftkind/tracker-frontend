@@ -318,3 +318,50 @@ select {
         color: $red-orange;
     }
 }
+
+.account-photo {
+    margin-top: 2em;
+    .upload {
+        position: relative;
+        overflow: hidden;
+        width: 10em;
+        margin: 0 auto;
+        padding-bottom: 40px;
+        .input-image {
+            cursor: pointer;
+            opacity: 0;
+            width: 140px;
+            height: 140px;
+            border-radius: 6em;
+            position: absolute;
+            z-index: 10;
+        }
+        .photo {
+            width: 10em;
+            height: 10em;
+            border-radius: 6em;
+            display: block;
+            z-index: 3;
+            background-position: center center;
+            overflow: hidden;
+        }
+        button {
+            display: block;
+            margin: 0 auto;
+            width: 90px;
+            margin-top: 10px;
+        }
+    }
+    .upload-btn {
+        color: $white;
+        background: rgba($dark-grey, 0.5);
+        width: 10em;
+        height: 10em;
+        border-radius: 6em;
+        position: absolute;
+        z-index: 5;
+        padding-top: 1em;
+        text-align: center;
+    }
+}
+
