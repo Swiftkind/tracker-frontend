@@ -9,6 +9,9 @@
         margin-left: 4em;
         span {
             display: inline-block;
+            .user-fullname {
+                text-transform: capitalize;
+            }
             &.dropdown-icon {
                 margin-top: -1em;
             }

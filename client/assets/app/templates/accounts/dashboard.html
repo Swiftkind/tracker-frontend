@@ -2,13 +2,16 @@
     <div class="left-pane">
         <div class="user-profile">
             <div class="avatar-sm pull-left">
-                <div class="photo img-circle" style="background-image: url('/images/sample.png');">
+                <div class="photo img-circle" ng-if="!user.profile_photo" style="background-image: url('/images/sample.png');">
+                </div>
+
+                <div class="photo img-circle" ng-if="user.profile_photo" style="background-image: url({{ user.profile_photo }});">
                 </div>
             </div>
             <div class="user-profile-detail ">
                 <span class="profile-detail" uib-dropdown on-toggle="toggled(open)"> 
                     <a href="" class="text-link" uib-dropdown-toggle>
-                        <strong>{{ user.first_name }} {{ user.last_name }}<span class="dropdown-icon"><i class="icon ion-chevron-down"></i></span></strong>
+                        <strong class="user-fullname">{{ user.first_name }} {{ user.last_name }}<span class="dropdown-icon"><i class="icon ion-chevron-down"></i></span></strong>
                     </a>
                     <small><p class="text-muted">Swiftkind</p></small>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">

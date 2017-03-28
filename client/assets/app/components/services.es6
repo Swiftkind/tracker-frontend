@@ -1,7 +1,11 @@
 class AccountService {
-    constructor($http, API_URL) {
+    constructor($http, API_URL, Upload) {
         this._$http = $http;
         this._API_URL = API_URL;
+        this._Upload = Upload;
+        this.user = undefined;
+        this.loaded = false;
+        this.getCurrentUser();
     }
     signup(form) {
         return this._$http.post(this._API_URL + 'account/', form);
@@ -23,6 +27,24 @@ class AccountService {
         return this._$http.put(this._API_URL + 'account/', form).then(resp => {
             return resp.data;
         });
+    }
+
+    uploadPhoto(form) {
+        return this._Upload.upload({
+              url: this._API_URL + 'photo/',
+              data: form,
+              method: 'PUT'
+        });
+    }
+
+    getCurrentUser() {
+        if(this.loaded) return;
+        this.loaded = true;
+        return this._$http.get(this._API_URL + 'account/').then((result) => { 
+          this.loaded = false;
+          this.user = result.data;
+          return result.data;
+        })
     }
 }
 

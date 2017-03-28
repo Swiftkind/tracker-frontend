@@ -56,11 +56,37 @@
     </div>
     <div class="modal-body">
         <div class="form">
-            <form name="updateProfileForm" ng-submit="updateProfileForm.$valid && updateProfile(user)" novalidate>
-                <div class="avatar-md align-center ">
-                    <div class="photo img-circle" style="background-image: url('/images/sample.png');">
+            <div ng-show="uploadSuccess" class="text-success">Profile photo successfully updated.</div>
+            <div class="account-photo">
+                <form name="imageForm" ng-submit="uploadPhoto(user)" novalidate>
+                    <div class="upload">
+                        <input type="file" ngf-select class="input-image" 
+                                ng-model="user.profile_photo"
+                                name="profile_photo"
+                                accept="image/*"
+                                ng-change="change=true"
+                                ng-click="cancelUpload()">
+                                
+                        <div class="upload-btn">
+                            <h2 class="icon ion-camera"></h2>
+                            <label>Update photo</label>
+                        </div>
+
+                        <div class="avatar-md align-center">
+                            <img class="photo img-circle" ng-show="user.profile_photo" ngf-src="user.profile_photo">
+
+                            <div class="photo img-circle" ng-show="!user.profile_photo" style="background-image: url('/images/sample.png');">
+                            </div>
+                        </div>
+                        <div ng-if="change">
+                            <button type="submit" class="btn btn-default btn-sm">Upload</button>
+                            <button type="button" class="btn btn-default btn-sm" ng-if="change" ng-click="cancelUpload()">Cancel</button> 
+                        </div>
                     </div>
-                </div>
+                </form> 
+            </div>
+
+            <form name="updateProfileForm" ng-submit="updateProfileForm.$valid && updateProfile(user)" novalidate>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -161,10 +187,10 @@
                         </div>
                     </div>
                 </div>
-            <div class="text-center">
-                <button type="button" class="btn  btn-primary-border" ng-click="cancel()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
+                <div class="text-center">
+                    <button type="button" class="btn  btn-primary-border" ng-click="cancel()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </form>
         </div>
     </div>
