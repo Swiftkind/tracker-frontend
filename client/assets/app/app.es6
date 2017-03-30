@@ -22,7 +22,11 @@ angular
         'angular-duration-format',
         'timer',
         'ngFileUpload',
-        'angular.filter'
+        'angular.filter',
+        'ui.select',
+        'ngSanitize',
+        'sc.select',
+        'ui-notification'
     ])
     .constant('TEMPLATE_URL', 'app/templates/')
     .constant('API_URL', 'http://127.0.0.1:8080/api/')

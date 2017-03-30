@@ -125,8 +125,8 @@
             </div>
             <div class="item input" ng-hide="tracking">
                 <div id="addLog" class="">
-                    <input type="text" name="" ng-model="newLog.memo" placeholder="Add Task +" class="form-control">
-                    <button class="btn btn-success" ng-click="createNewLog(newLog); newLog.memo=''" ng-disabled="!newLog.memo">Add</button>
+                    <input type="text" name="" ng-keyup="$event.keyCode == 13 && createNewLog(newLog)" ng-model="newLog.memo" placeholder="Add Task +" class="form-control">
+                    <button class="btn btn-success" ng-click="createNewLog(newLog)" ng-disabled="!newLog.memo">Add</button>
                 </div>
             </div>
             <div class="item" ng-repeat="(key, value) in logs| groupBy: 'memo'" ng-click="selectLog(value)" ng-class="{'selected':key==selectedLog.memo}">

@@ -30,13 +30,11 @@ class AccountService {
     getAllLogs () {
         return this._$http.get(this._API_URL + 'logs/');
     }
-
     update(form) {
         return this._$http.put(this._API_URL + 'account/', form).then(resp => {
             return resp.data;
         });
     }
-
     uploadPhoto(form) {
         return this._Upload.upload({
               url: this._API_URL + 'photo/',
@@ -44,7 +42,6 @@ class AccountService {
               method: 'PUT'
         });
     }
-
     getCurrentUser() {
         if(this.loaded) return;
         this.loaded = true;
@@ -54,9 +51,21 @@ class AccountService {
           return result.data;
         })
     }
-    invite (data) {
+    getAllProjects () {
+        return this._$http.get(this._API_URL + 'project-list/');
+    }
+    getProjectMembers () {
+        return this._$http.get(this._API_URL + 'members/');
+    }
+    getProjectNoneMembers (data) {
+        return this._$http.post(this._API_URL + 'members/', data);
+    }
+    getAccounts () {
+        return this._$http.get(this._API_URL + 'accounts/');
+    }
+    sendInvite (data) {
         return this._$http.post(this._API_URL + 'invite/', data);
-    } 
+    }
 }
 
 class AuthService {

@@ -106,6 +106,7 @@ class DashboardController {
                 $scope.selectedLog = data;
                 $scope.tracking = true;
                 $scope.reloaded = false;
+                $scope.newLog.memo = '';
             }).catch((err) => {
                 console.log(err);
             });
@@ -379,13 +380,15 @@ class SignupController {
 
 //ADMIN CONTROLLER
 class AdminDashboardController {
-    constructor ($scope, $state, AuthService, AccountService, store) {
+    constructor ($scope, $state, AuthService, store, AccountService, Notification) {
         'ngInject';
         this.$scope = $scope;
         this.AuthService = AuthService;
         this.AccountService = AccountService;
         
         $scope.user = undefined;
+        $scope.projectMembers = [];
+        $scope.members = [];
 
         $scope.logout = () => {
             AuthService.logout();
@@ -399,17 +402,57 @@ class AdminDashboardController {
             }
         });
 
-        $scope.inviteUser = () => {
-            let data = {
-                "project" : "This is the project",
-                "email"   : "jerumbaoa@gmail.com",
-            }
+        ///get all projects of current admin
+        AccountService.getAllProjects().then((resp) => {
+            $scope.projects = resp.data;
+        });
 
-            AccountService.invite(data).then((resp) => {
-                console.log('Successfully invited');
-            }).catch((err) => {
-                console.log(err);
+        ///get all members on different projects
+        ($scope.allMembers = () => {
+            AccountService.getProjectMembers().then((resp) => {
+                $scope.projectMembers = resp.data;
             });
+        })();
+
+        ///get all accounts
+        ($scope.allAccounts = () => {
+            AccountService.getAccounts().then((resp) => {
+                $scope.accounts = resp.data;
+            });
+        })();
+
+        $scope.getMembers = (project) => {
+            $scope.project = project;
+            $scope.members = [];
+            $scope.projectMembers.map((account) => {
+                if(account.project == project.id) {
+                    $scope.members.push(account);
+                }
+            });
+            AccountService.getProjectNoneMembers($scope.members).then((resp) => {
+                $scope.filteredMembers = resp.data;
+            });
+        };
+
+        $scope.inviteMember = (project) => {
+            if(!project.member) {
+                Notification.clearAll()
+                Notification.warning('No email inputted!');
+            }else {
+                Notification.info('Sending...');
+                AccountService.sendInvite(project).then((resp) => {
+                    Notification.clearAll()
+                    Notification.success('Invitation Sent!');
+                    $scope.project.member = '';
+                    $scope.members.push(resp.data);
+                }).catch((err) => {
+                    if(err.status == 500) {
+                        Notification.clearAll()
+                        Notification.warning({message: 'Make sure that this email was not added yet to this project.', title: 'Failed:'});
+                    };
+                    console.log(err.data);
+                });
+            };
         };
     }
 }
