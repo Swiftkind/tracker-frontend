@@ -44,7 +44,9 @@ gulp.task('vendors-js', function() {
     'node_modules/angular-filter/dist/angular-filter.js',
     'node_modules/angular-sanitize/angular-sanitize.js',
     'node_modules/angular-sc-select/dist/sc-select.js',
-    'node_modules/ui-select/dist/select.js'])
+    'node_modules/ui-select/dist/select.js',
+    'node_modules/ob-daterangepicker/dist/scripts/ob-daterangepicker.js'
+    ])
     .pipe(concat('vendors.js'))
     .pipe(gulp.dest('dist/js'));
 });
@@ -55,7 +57,9 @@ gulp.task('vendors-css', function() {
     'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css',
     'node_modules/angular-ui-notification/dist/angular-ui-notification.css',
     'node_modules/angular-sc-select/dist/sc-select.css',
-    'node_modules/ui-select/dist/select.css'])
+    'node_modules/ui-select/dist/select.css',
+    'node_modules/ob-daterangepicker/dist/styles/ob-daterangepicker.css'
+    ])
     .pipe(concat('vendors.css'))
     .pipe(gulp.dest('dist/css'));
 });

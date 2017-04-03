@@ -123,7 +123,36 @@ class AuthService {
 
 }
 
+
+class AdminService {
+    constructor($state, $q, $http, $window, $location, API_URL) {
+        this._$http = $http;
+        this._API_URL = API_URL;
+    }
+
+    getProjects () {
+        return this._$http.get(this._API_URL + 'project-list/').then((result) => {
+            return result.data;
+        });
+    }
+
+    getMembers () {
+        return this._$http.get(this._API_URL +  'members/').then((result) => {
+            return result.data
+        })
+    }
+
+    getMemberLogs () {
+        return this._$http.get(this._API_URL +  'members/logs/').then((result) => {
+            return result.data
+        })
+    }
+
+
+}
+
 export {
     AccountService, 
     AuthService,
+    AdminService,
 };
