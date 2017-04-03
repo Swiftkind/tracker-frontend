@@ -10,11 +10,19 @@ class AccountService {
     signup(form) {
         return this._$http.post(this._API_URL + 'account/', form);
     }
-    play(data) {
+    update(form) {
+        return this._$http.put(this._API_URL + 'account/', form).then(resp => {
+            return resp.data;
+        });
+    }
+    playTracker(data) {
         return this._$http.post(this._API_URL + 'timelog/', data);
     }
     getCurrentLog () {
         return this._$http.get(this._API_URL + 'timelog/');
+    }
+    updateLog (data) {
+        return this._$http.put(this._API_URL + 'timelog/', data);
     }
     getProjects () {
         return this._$http.get(this._API_URL + 'projects/');
@@ -22,13 +30,11 @@ class AccountService {
     getAllLogs () {
         return this._$http.get(this._API_URL + 'logs/');
     }
-
     update(form) {
         return this._$http.put(this._API_URL + 'account/', form).then(resp => {
             return resp.data;
         });
     }
-
     uploadPhoto(form) {
         return this._Upload.upload({
               url: this._API_URL + 'photo/',
@@ -36,7 +42,6 @@ class AccountService {
               method: 'PUT'
         });
     }
-
     getCurrentUser() {
         if(this.loaded) return;
         this.loaded = true;
@@ -45,6 +50,21 @@ class AccountService {
           this.user = result.data;
           return result.data;
         })
+    }
+    getAllProjects () {
+        return this._$http.get(this._API_URL + 'project-list/');
+    }
+    getProjectMembers () {
+        return this._$http.get(this._API_URL + 'members/');
+    }
+    getProjectNoneMembers (data) {
+        return this._$http.post(this._API_URL + 'members/', data);
+    }
+    getAccounts () {
+        return this._$http.get(this._API_URL + 'accounts/');
+    }
+    sendInvite (data) {
+        return this._$http.post(this._API_URL + 'invite/', data);
     }
 }
 

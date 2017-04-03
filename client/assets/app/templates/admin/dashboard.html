@@ -33,30 +33,63 @@
         </nav>
         <div class="container">
             <div class="row form">
-                <div class="col-md-3 col-sm-3">
+                <div class="col-md-6 col-sm-3">
                     <div class="dropdown option-dropdown">
-                     
+                    <ul>
+                        <li ng-repeat="project in projects"><a href="" ng-click="getMembers(project)">{{project.name}}</a></li>
+                    </ul>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3">
-                    <div class="option-dropdown">
-                        <label>Start date:</label>
-                        <input type="date" name="" class="form-control">
+                <div class="col-md-6 col-sm-3" ng-show="project">
+                    <div class="dropdown option-dropdown" ng-show="members">
+                        <h2>{{project.name}}</h2>
+                        <h4>Members List:</h4>
+                        <ul>
+                            <li ng-repeat="account in members">{{account.member.first_name}} {{account.member.last_name}} {{account.member.email}}</li>
+                        </ul>
+                        <h4>Add Member:</h4>
+                        <div>
+                            <label>Add New Email:</label>
+                            <input type="checkbox" ng-model="checkMember"/>
+                            <input type="email" ng-model="project.member.email" ng-if="checkMember" placeholder="Enter email...">
+                            <sc-select
+                                ng-if="!checkMember"
+                                ng-model="project.member"
+                                sc-options="member as member.email for member in filteredMembers"
+                                placeholder="Select or search a person in the list...">
+                            </sc-select>
+
+                            <button ng-click="inviteMember(project)">Add</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3">
-                    <div class="option-dropdown">
-                        <label>End date:</label>
-                        <input type="date" name="" class="form-control">
+            </div>
+            <div class="row nomargin ad-section">
+                <div class="row form">
+                    <div class="col-md-3 col-sm-3">
+                        <div class="dropdown option-dropdown">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <div class="option-dropdown">
-                        <label>Member:</label>
-                        <select class="form-control">
-                            <option>Sam Clafin</option>
-                            <option>Ben Barnes</option>
-                        </select>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="option-dropdown">
+                            <label>Start date:</label>
+                            <input type="date" name="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="option-dropdown">
+                            <label>End date:</label>
+                            <input type="date" name="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="option-dropdown">
+                            <label>Member:</label>
+                            <select class="form-control">
+                                <option>Sam Clafin</option>
+                                <option>Ben Barnes</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>

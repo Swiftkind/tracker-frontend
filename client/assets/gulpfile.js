@@ -38,8 +38,13 @@ gulp.task('vendors-js', function() {
     'node_modules/angular-duration-format/dist/angular-duration-format.js',
     'node_modules/angular-timer/dist/angular-timer.js',
     'node_modules/angular-timer/bower_components/humanize-duration/humanize-duration.js',
-    'node_modules/ng-file-upload/dist/ng-file-upload.min.js'
-    ])
+    'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
+    'node_modules/angular-filter/dist/angular-filter.js',
+    'node_modules/angular-ui-notification/dist/angular-ui-notification.js',
+    'node_modules/angular-filter/dist/angular-filter.js',
+    'node_modules/angular-sanitize/angular-sanitize.js',
+    'node_modules/angular-sc-select/dist/sc-select.js',
+    'node_modules/ui-select/dist/select.js'])
     .pipe(concat('vendors.js'))
     .pipe(gulp.dest('dist/js'));
 });
@@ -47,7 +52,10 @@ gulp.task('vendors-js', function() {
 gulp.task('vendors-css', function() {
   return gulp.src([
     // add 3rd-party css scripts here
-    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css'])
+    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css',
+    'node_modules/angular-ui-notification/dist/angular-ui-notification.css',
+    'node_modules/angular-sc-select/dist/sc-select.css',
+    'node_modules/ui-select/dist/select.css'])
     .pipe(concat('vendors.css'))
     .pipe(gulp.dest('dist/css'));
 });

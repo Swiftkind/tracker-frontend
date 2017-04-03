@@ -3,7 +3,8 @@ import {
     AccountSettingController,
     SignupController,
     LoginController,
-    AdminDashboardController
+    AdminDashboardController,
+    UpdateLogController
 } from './components/controllers.es6';
 
 import { 
@@ -21,6 +22,11 @@ angular
         'angular-duration-format',
         'timer',
         'ngFileUpload',
+        'angular.filter',
+        'ui.select',
+        'ngSanitize',
+        'sc.select',
+        'ui-notification'
     ])
     .constant('TEMPLATE_URL', 'app/templates/')
     .constant('API_URL', 'http://127.0.0.1:8080/api/')
@@ -30,5 +36,6 @@ angular
     .controller('AccountSettingController', AccountSettingController)
     .controller('SignupController', SignupController)
     .controller('LoginController', LoginController)
-    .controller('AdminDashboardController', AdminDashboardController);
+    .controller('AdminDashboardController', AdminDashboardController)
+    .controller('UpdateLogController', UpdateLogController);
 ;
