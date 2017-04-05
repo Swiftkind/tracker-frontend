@@ -429,9 +429,14 @@ class AdminDashboardController {
         $scope.getMembers = (project) => {
             $scope.project = project;
             $scope.members = [];
+            $scope.projectMember = [];
             $scope.projectMembers.map((account) => {
                 if(account.project == project.id) {
                     $scope.members.push(account);
+                    $scope.selectedMember = account;
+                    $scope.selectedProject = project.name;
+                    $scope.currentProject = project;
+                    $scope.projectMember.push(account);
                 }
             });
             AccountService.getProjectNoneMembers($scope.members).then((resp) => {

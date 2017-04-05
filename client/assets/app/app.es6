@@ -27,7 +27,7 @@ angular
         'ui.select',
         'ngSanitize',
         'sc.select',
-        'ui-notification'
+        'ui-notification',
         'obDateRangePicker'
     ])
     .constant('TEMPLATE_URL', 'app/templates/')
@@ -40,7 +40,7 @@ angular
     .controller('SignupController', SignupController)
     .controller('LoginController', LoginController)
     .controller('AdminDashboardController', AdminDashboardController)
-    .controller('UpdateLogController', UpdateLogController);
+    .controller('UpdateLogController', UpdateLogController)
     .filter('toHrs', ()=> {
         return (input)=> {
             let total = 0;
