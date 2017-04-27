@@ -32,6 +32,7 @@
             </div>
         </nav>
         <div class="container">
+
             <div class="row form">
                 <div class="col-md-6 col-sm-3">
                     <div class="dropdown option-dropdown">
@@ -64,57 +65,70 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="row nomargin ad-section">
-                <div class="row form">
-                    <div class="col-md-3 col-sm-3">
-                        <div class="dropdown option-dropdown">
-                        </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="dropdown option-dropdown">
                     </div>
-                    <div class="col-md-3 col-sm-3">
-                        <div class="option-dropdown">
-                            <label>Start date:</label>
-                            <input type="date" name="" class="form-control">
-                        </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="option-dropdown">
+                        <label>Select date:</label>
+                        <ob-daterangepicker 
+                            ng-class="{'up': ctrl.dropsUp}" 
+                            class="{{ctrl.opens}}" 
+                            range="ctrl.range" 
+                            format="ctrl.format" 
+                            calendars-always-on="ctrl.calendarsAlwaysOn"
+                            ranges="ctrl.ranges"
+                            on-apply="ctrl.rangeApplied(start, end)"
+                            week-start="ctrl.weekStart"
+                            month-format="ctrl.monthNames">    
+                        </ob-daterangepicker>
                     </div>
-                    <div class="col-md-3 col-sm-3">
-                        <div class="option-dropdown">
-                            <label>End date:</label>
-                            <input type="date" name="" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3">
-                        <div class="option-dropdown">
-                            <label>Member:</label>
-                            <select class="form-control">
-                                <option>Sam Clafin</option>
-                                <option>Ben Barnes</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="col-md-3 col-sm-3"></div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="option-dropdown">
+                        <label>Member:</label>
+                         <select class="form-control" 
+                                    ng-options="item as item.member.email for item in projectMember track by item.id" 
+                                    ng-model="selectedMember" 
+                                    ng-selected="memberLogs(selectedMember)">
+                        </select>
+
                     </div>
                 </div>
             </div>
-            <div class="row nomargin ad-section">
+            <div class="row nomargin ad-section" ng-if="selectedUser.member">
                 <div class="col-md-3 col-sm-7">
                     <div class="user-profile ">
                         <div class="avatar-sm pull-left">
-                            <div class="photo img-circle" style="background-image: url('images/sample.png');">
+                            <div class="photo img-circle" ng-if="!selectedUser.profile_photo" style="background-image: url('images/sample.png');">
+                            </div>
+                            <div class="photo img-circle" ng-if="selectedUser.profile_photo" style="background-image: url({{ selectedUser.profile_photo }});">
                             </div>
                         </div>
                     </div>
-                    <div class="user-profile-detail ">
-                        <span class="profile-detail"> <a href="#" class="text-link" aria-haspopup="true" aria-expanded="true" ><strong>Sam Clafin </strong>
-                        </a>
-                        <small class="text-muted"><p >sam.clafin@gmail.com</p></small>
-                        
+                    <div class="user-profile-detail">
+                        <span class="profile-detail">
+                            <a href="#" class="text-link" aria-haspopup="true" aria-expanded="true" >
+                                <strong>{{ selectedUser.member.first_name }} {{ selectedUser.member.last_name }} </strong>
+                            </a>
+                            <small class="text-muted"><p>{{ selectedUser.member.email }}</p></small>
                         </span>
                     </div>
                 </div>
                 <div class="col-md-3 col-md-offset-6 col-sm-5">
-                    <h3 class="nomargin-top">Total Hours:  11:22</h3>
-                    <small><p class="text-muted nomargin">11:22 of 80 hours</p></small>
-                </div>
+
+                    <h3 class="nomargin-top">Total Hours: {{ totalHours | duration : 'hh:mm:ss'}}</h3>
+                    <h3></h3>
+
+<!--                     <small><p class="text-muted nomargin">{{ totalHours | duration : 'hh:mm:ss'}} of 80 hours</p></small>
+ -->             </div>
             </div>
-            <div class="timesheet">
+            <div class="timesheet" ng-if="selectedUser.member">
                 <div class="row hidden-xs">
                     <div class="col-md-2 col-sm-2">Date:</div>
                     <div class="col-md-1 col-sm-1">Hours:</div>
@@ -123,143 +137,50 @@
                     <div class="col-md-2 col-sm-1">Projects:</div>
                     <div class="col-md-2"></div>
                 </div>
-                <div class="row row-head ">
-                    <div class="col-md-2 col-sm-6 col-xs-6">
-                        <div class="date">
-                            <p>Jan. 23, 2017</p>
+                <div ng-repeat="(key, value) in memberLog | groupBy: 'start'"
+                    ng-init="total=[]">
+                    <div class="row row-head">
+                        <div class="col-md-2 col-sm-6 col-xs-6">
+                            <div class="date">
+                                <p>{{ key|date }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-md-offset-8 col-sm-3 col-sm-offset-3 col-xs-6">
+                            <h3>{{ total | toHrs | duration : 'hh:mm:ss'}}</h3>
+                            <small class="text-muted"><p>Daily Total Hours</p></small>
                         </div>
                     </div>
-                    <div class="col-md-2 col-md-offset-8 col-sm-3 col-sm-offset-3 col-xs-6">
-                        <h3>7 H : 25 M</h3>
-                        <small class="text-muted"><p>Daily Total Hours</p></small>
-                    </div>
-                </div>
-                <div class="row row-content flex">
-                    <div class="col-md-2 col-sm-2"></div>
-                    <p class="visible-xs">Hours:</p>
-                    <div class="col-md-1 col-sm-1 col-xs-12">1:40</div>
-                    <div class="col-md-4 col-sm-6">
-                        <div>
-                            <p>Sustainable asymm goth.</p>
+
+                    <div class="row row-content flex" ng-repeat="log in value | filter: dateRangeFilter('start', ctrl.dateStart, ctrl.dateEnd)">
+                        <div class="col-md-2 col-sm-2"></div>
+                        <span ng-init="total.push(log.seconds)">{{ total_sum }}</span>
+                        <p class="visible-xs">Hours:</p>
+                        <div class="col-md-1 col-sm-1 col-xs-12">{{ log.log_field }}</div>
+                        <div class="col-md-4 col-sm-6">
+                            <div>
+                                <p>{{ log.memo }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-1 col-sm-1 col-xs-12">
-                     <div class="ad-checkbox">
-                            <label class="control control--checkbox">
-                            <input type="checkbox"/>
-                            <div class="control__indicator"></div>
-                        </label>
-                     </div>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        
-                        <div>
-                            <p>Swiftkind Internal</p>
+                        <div class="col-md-1 col-sm-1 col-xs-12">
+                         <div class="ad-checkbox">
+                                <label class="control control--checkbox">
+                                <input type="checkbox" ng-model="log.is_approved"/>
+                                <div class="control__indicator"></div>
+                            </label>
+                         </div>
                         </div>
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row row-content flex">
-                    <div class="col-md-2 col-sm-2"></div>
-                    <div class="col-md-1 col-sm-1">1:40</div>
-                    <div class="col-md-4 col-sm-6">Sustainable asymmetrical kale chips roof party, goth.</div>
-                    <div class="col-md-1 col-sm-1">
-                       <div class="ad-checkbox">
-                            <label class="control control--checkbox">
-                            <input type="checkbox"/>
-                            <div class="control__indicator"></div>
-                        </label>
-                     </div>
-                    </div>
-                    <div class="col-md-2 col-sm-2">Swiftkind Internal</div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row row-head ">
-                    <div class="col-md-2 col-sm-6">
-                        <div class="date">
-                            <p>Jan. 23, 2017</p>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <div> 
+                                <p>{{ selectedProject }}</p>
+                            </div>
                         </div>
+                        <div class="col-md-2"></div>
                     </div>
-                    <div class="col-md-2 col-md-offset-8 col-sm-3 col-sm-offset-3">
-                        <h3>7 H : 25 M</h3>
-                        <small class="text-muted"><p>Daily Total Hours</p></small>
-                    </div>
-                </div>
-                <div class="row row-content flex">
-                    <div class="col-md-2 col-sm-2"></div>
-                    <div class="col-md-1 col-sm-1">1:40</div>
-                    <div class="col-md-4 col-sm-6">Sustainable asymmetrical kale chips roof party, etsy ethical health goth.</div>
-                    <div class="col-md-1 col-sm-1">
-                       <div class="ad-checkbox">
-                            <label class="control control--checkbox">
-                            <input type="checkbox"/>
-                            <div class="control__indicator"></div>
-                        </label>
-                     </div>
-                    </div>
-                    <div class="col-md-2 col-sm-1" >Swiftkind Internal</div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row row-content flex">
-                    <div class="col-md-2 col-sm-2"></div>
-                    <div class="col-md-1 col-sm-1">1:40</div>
-                    <div class="col-md-4 col-sm-6">Sustainable asymmetrical kale chips roof party, etsy ethical health goth.</div>
-                    <div class="col-md-1 col-sm-1">
-                       <div class="ad-checkbox">
-                            <label class="control control--checkbox">
-                            <input type="checkbox"/>
-                            <div class="control__indicator"></div>
-                        </label>
-                     </div>
-                    </div>
-                    <div class="col-md-2 col-sm-1" >Swiftkind Internal</div>
-                    <div class="col-md-2"></div>
-                </div>
-               <div class="row row-head ">
-                    <div class="col-md-2 col-sm-6">
-                        <div class="date">
-                            <p>Jan. 23, 2017</p>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-md-offset-8 col-sm-3 col-sm-offset-3">
-                        <h3>7 H : 25 M</h3>
-                        <small class="text-muted"><p>Daily Total Hours</p></small>
-                    </div>
-                </div> 
-                 <div class="row row-content flex">
-                    <div class="col-md-2 col-sm-2"></div>
-                    <div class="col-md-1 col-sm-1">1:40</div>
-                    <div class="col-md-4 col-sm-6">Sustainable asymmetrical kale chips roof party, etsy ethical health goth.</div>
-                    <div class="col-md-1 col-sm-1">
-                       <div class="ad-checkbox">
-                            <label class="control control--checkbox">
-                            <input type="checkbox"/>
-                            <div class="control__indicator"></div>
-                        </label>
-                     </div>
-                    </div>
-                    <div class="col-md-2 col-sm-1" >Swiftkind Internal</div>
-                    <div class="col-md-2"></div>
-                </div> 
-                 <div class="row row-content flex">
-                    <div class="col-md-2 col-sm-2"></div>
-                    <div class="col-md-1 col-sm-1">1:40</div>
-                    <div class="col-md-4 col-sm-6">Sustainable asymmetrical kale chips roof party, etsy ethical health goth.</div>
-                    <div class="col-md-1 col-sm-1">
-                       <div class="ad-checkbox">
-                            <label class="control control--checkbox">
-                            <input type="checkbox"/>
-                            <div class="control__indicator"></div>
-                        </label>
-                     </div>
-                    </div>
-                    <div class="col-md-2 col-sm-1" >Swiftkind Internal</div>
-                    <div class="col-md-2"></div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
+
 
 <div class="content visible-xs">
     <div class="admin-content">
